@@ -13,6 +13,7 @@ namespace Assignment5
 {
     public partial class Form1 : Form
     {
+        //all of the text boxes for the sudoku puzzle
         RichTextBox[,] EasyBoxes = new RichTextBox[3, 3];
         RichTextBox[] EasyAnswers = new RichTextBox[8];
         RichTextBox[] EasyTotals = new RichTextBox[8];
@@ -22,6 +23,7 @@ namespace Assignment5
         RichTextBox[,] HardBoxes = new RichTextBox[7, 7];
         RichTextBox[] HardAnswers = new RichTextBox[16];
         RichTextBox[] HardTotals = new RichTextBox[16];
+        //all the file paths for the puzzles
         String e1path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\easy\\e1.txt";
         String e2path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\easy\\e2.txt";
         String e3path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\easy\\e3.txt";
@@ -31,6 +33,7 @@ namespace Assignment5
         String h1path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\hard\\h1.txt";
         String h2path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\hard\\h2.txt";
         String h3path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\hard\\h3.txt";
+        //these are all the initial matricies for the puzzles as well as some bool variables that state whether or not they have been completed
         char[,] easyinitial1 = new char[3, 3];
         char[,] easyinitial2 = new char[3, 3];
         char[,] easyinitial3 = new char[3, 3];
@@ -43,6 +46,22 @@ namespace Assignment5
         char[,] hardinitial2 = new char[7, 7];
         char[,] hardinitial3 = new char[7, 7];
         bool[] hardcomplete = new bool[3];
+        //these are the answers for the puzzles
+        char[,] easyans1 = new char[3, 3];
+        char[,] easyans2 = new char[3, 3];
+        char[,] easyans3 = new char[3, 3];
+        char[,] mediumans1 = new char[5, 5];
+        char[,] mediumans2 = new char[5, 5];
+        char[,] mediumans3 = new char[5, 5];
+        char[,] hardans1 = new char[7, 7];
+        char[,] hardans2 = new char[7, 7];
+        char[,] hardans3 = new char[7, 7];
+        //current states of the puzzles
+        char[,] easycurrent;
+        char[,] mediumcurrent;
+        char[,] hardcurrent;
+        //this is just an int representing the current difficulty selected 1 for easy 3 for hard and -1 for not selected
+        int currentdif = -1;
 
         public Form1()
         {
@@ -90,6 +109,7 @@ namespace Assignment5
         }
         private void easyToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            currentdif = 1;
             panel1.Controls.Clear();
             for (int i = 0; i < 3; i++)
             { 
@@ -204,10 +224,33 @@ namespace Assignment5
             this.EasyTotals[7].ReadOnly = true;
             this.EasyTotals[7].SelectionAlignment = HorizontalAlignment.Center;
             this.Controls.Add(EasyTotals[7]);
+            if (easycomplete[0])
+            {
+                if (easycurrent == null)
+                    easycurrent = easyinitial1;
+                setCurrentTotals(easycurrent);
+                setAnsTotals(easyans1); 
+            }
+            else if (easycomplete[1])
+            {
+                if (easycurrent == null)
+                    easycurrent = easyinitial2;
+                setCurrentTotals(easycurrent);
+                setAnsTotals(easyans2);
+            }
+            else if (easycomplete[2])
+            {
+                if (easycurrent == null)
+                    easycurrent = easyinitial3;
+                setCurrentTotals(easycurrent);
+                setAnsTotals(easyans3); 
+            }
+            colorInitVals(easycurrent);
         }
 
         private void mediumToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            currentdif = 2;
             panel1.Controls.Clear();
             for (int i = 0; i < 5; i++)
             {
@@ -322,10 +365,33 @@ namespace Assignment5
             this.MediumTotals[11].ReadOnly = true;
             this.MediumTotals[11].SelectionAlignment = HorizontalAlignment.Center;
             this.Controls.Add(MediumTotals[11]);
+            if (mediumcomplete[0])
+            {
+                if (mediumcurrent == null)
+                    mediumcurrent = mediuminitial1;
+                setCurrentTotals(mediumcurrent);
+                setAnsTotals(mediumans1);
+            }
+            else if (mediumcomplete[1])
+            {
+                if (mediumcurrent == null)
+                    mediumcurrent = mediuminitial2;
+                setCurrentTotals(mediumcurrent);
+                setAnsTotals(mediumans2);
+            }
+            else if (mediumcomplete[2])
+            {
+                if (mediumcurrent == null)
+                    mediumcurrent = mediuminitial3;
+                setCurrentTotals(mediumcurrent);
+                setAnsTotals(mediumans3);
+            }
+            colorInitVals(mediumcurrent);
         }
 
         private void hardToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            currentdif = 3;
             panel1.Controls.Clear();
             for (int i = 0; i < 7; i++)
             {
@@ -444,6 +510,28 @@ namespace Assignment5
             this.HardTotals[15].ReadOnly = true;
             this.HardTotals[15].SelectionAlignment = HorizontalAlignment.Center;
             this.Controls.Add(HardTotals[15]);
+            if (hardcomplete[0])
+            {
+                if (hardcurrent == null)
+                    hardcurrent = hardinitial1;
+                setCurrentTotals(hardcurrent);
+                setAnsTotals(hardans1);
+            }
+            else if (hardcomplete[1])
+            {
+                if (hardcurrent == null)
+                    hardcurrent = hardinitial2;
+                setCurrentTotals(hardcurrent);
+                setAnsTotals(hardans2);
+            }
+            else if (hardcomplete[2])
+            {
+                if (hardcurrent == null)
+                    hardcurrent = hardinitial3;
+                setCurrentTotals(hardcurrent);
+                setAnsTotals(hardans3);
+            }
+            colorInitVals(hardcurrent);
         }
         public void readin()
         {
@@ -474,6 +562,9 @@ namespace Assignment5
                         easyinitial1[i, x] = e1lines[i].ElementAt(x);
                         easyinitial2[i, x] = e2lines[i].ElementAt(x);
                         easyinitial3[i, x] = e3lines[i].ElementAt(x);
+                        easyans1[i, x] = e1lines[i+4].ElementAt(x);
+                        easyans2[i, x] = e2lines[i+4].ElementAt(x);
+                        easyans3[i, x] = e3lines[i+4].ElementAt(x);
                     }
                 }
                 for (int i = 0; i < 5; i++)
@@ -483,6 +574,9 @@ namespace Assignment5
                         mediuminitial1[i, x] = m1lines[i].ElementAt(x);
                         mediuminitial2[i, x] = m2lines[i].ElementAt(x);
                         mediuminitial3[i, x] = m3lines[i].ElementAt(x);
+                        mediumans1[i, x] = m1lines[i+6].ElementAt(x);
+                        mediumans2[i, x] = m2lines[i+6].ElementAt(x);
+                        mediumans3[i, x] = m3lines[i+6].ElementAt(x);
                     }
                 }
                 for (int i = 0; i < 7; i++)
@@ -492,6 +586,9 @@ namespace Assignment5
                         hardinitial1[i, x] = h1lines[i].ElementAt(x);
                         hardinitial2[i, x] = h2lines[i].ElementAt(x);
                         hardinitial3[i, x] = h3lines[i].ElementAt(x);
+                        hardans1[i, x] = h1lines[i+8].ElementAt(x);
+                        hardans2[i, x] = h2lines[i+8].ElementAt(x);
+                        hardans3[i, x] = h3lines[i+8].ElementAt(x);
                     }
                 }
             }
@@ -499,7 +596,208 @@ namespace Assignment5
             {
                 MessageBox.Show(e.ToString());
             }
-            
         }
+        public void setAnsTotals(char[,] charar)
+        {
+            if(currentdif == 1)
+            {
+                int[] total = new int[8];
+                for (int i = 0; i < 3; i++)
+                {
+                    total[0] += (int)Char.GetNumericValue(charar[i, 0]);
+                    total[1] += (int)Char.GetNumericValue(charar[i, 1]);
+                    total[2] += (int)Char.GetNumericValue(charar[i, 2]);
+                    total[3] += (int)Char.GetNumericValue(charar[i, i]);
+                    total[4] += (int)Char.GetNumericValue(charar[0, i]);
+                    total[5] += (int)Char.GetNumericValue(charar[1, i]);
+                    total[6] += (int)Char.GetNumericValue(charar[2, i]);
+                    total[7] += (int)Char.GetNumericValue(charar[2-i, i]);
+                }
+                for (int i = 0; i < 8; i++)
+                {
+                    EasyAnswers[i].Text = total[i].ToString();
+                    EasyAnswers[i].SelectionAlignment = HorizontalAlignment.Center;
+                }
+ 
+            }
+            if(currentdif == 2)
+            {
+                int[] total = new int[12];
+                for (int i = 0; i < 5; i++)
+                {
+                    total[0] += (int)Char.GetNumericValue(charar[i, 0]);
+                    total[1] += (int)Char.GetNumericValue(charar[i, 1]);
+                    total[2] += (int)Char.GetNumericValue(charar[i, 2]);
+                    total[3] += (int)Char.GetNumericValue(charar[i, 3]);
+                    total[4] += (int)Char.GetNumericValue(charar[i, 4]);
+                    total[5] += (int)Char.GetNumericValue(charar[i, i]);
+                    total[6] += (int)Char.GetNumericValue(charar[0, i]);
+                    total[7] += (int)Char.GetNumericValue(charar[1, i]);
+                    total[8] += (int)Char.GetNumericValue(charar[2, i]);
+                    total[9] += (int)Char.GetNumericValue(charar[3, i]);
+                    total[10] += (int)Char.GetNumericValue(charar[4, i]);
+                    total[11] += (int)Char.GetNumericValue(charar[4 - i, i]);
+                }
+                for (int i = 0; i < 12; i++)
+                {
+                    MediumAnswers[i].Text = total[i].ToString();
+                    MediumAnswers[i].SelectionAlignment = HorizontalAlignment.Center;
+                }
+            }
+            if (currentdif == 3)
+            {
+                int[] total = new int[16];
+                for (int i = 0; i < 7; i++)
+                {
+                    total[0] += (int)Char.GetNumericValue(charar[i, 0]);
+                    total[1] += (int)Char.GetNumericValue(charar[i, 1]);
+                    total[2] += (int)Char.GetNumericValue(charar[i, 2]);
+                    total[3] += (int)Char.GetNumericValue(charar[i, 3]);
+                    total[4] += (int)Char.GetNumericValue(charar[i, 4]);
+                    total[5] += (int)Char.GetNumericValue(charar[i, 5]);
+                    total[6] += (int)Char.GetNumericValue(charar[i, 6]);
+
+                    total[7] += (int)Char.GetNumericValue(charar[i, i]);
+                    total[8] += (int)Char.GetNumericValue(charar[0, i]);
+                    total[9] += (int)Char.GetNumericValue(charar[1, i]);
+                    total[10] += (int)Char.GetNumericValue(charar[2, i]);
+                    total[11] += (int)Char.GetNumericValue(charar[3, i]);
+                    total[12] += (int)Char.GetNumericValue(charar[4, i]);
+                    total[13] += (int)Char.GetNumericValue(charar[5, i]);
+                    total[14] += (int)Char.GetNumericValue(charar[6, i]);
+
+                    total[15] += (int)Char.GetNumericValue(charar[6 - i, i]);
+                }
+                for (int i = 0; i < 16; i++)
+                {
+                    HardAnswers[i].Text = total[i].ToString();
+                    HardAnswers[i].SelectionAlignment = HorizontalAlignment.Center;
+                }
+            }
         }
+
+        public void setCurrentTotals(char[,] charar)
+        {
+            if (currentdif == 1)
+            {
+                int[] total = new int[8];
+                for (int i = 0; i < 3; i++)
+                {
+                    total[0] += (int)Char.GetNumericValue(charar[i, 0]);
+                    total[1] += (int)Char.GetNumericValue(charar[i, 1]);
+                    total[2] += (int)Char.GetNumericValue(charar[i, 2]);
+                    total[3] += (int)Char.GetNumericValue(charar[i, i]);
+                    total[4] += (int)Char.GetNumericValue(charar[0, i]);
+                    total[5] += (int)Char.GetNumericValue(charar[1, i]);
+                    total[6] += (int)Char.GetNumericValue(charar[2, i]);
+                    total[7] += (int)Char.GetNumericValue(charar[2 - i, i]);
+                }
+                for (int i = 0; i < 8; i++)
+                {
+                    EasyTotals[i].Text = total[i].ToString();
+                    EasyTotals[i].SelectionAlignment = HorizontalAlignment.Center;
+                }
+
+            }
+            if (currentdif == 2)
+            {
+                int[] total = new int[12];
+                for (int i = 0; i < 5; i++)
+                {
+                    total[0] += (int)Char.GetNumericValue(charar[i, 0]);
+                    total[1] += (int)Char.GetNumericValue(charar[i, 1]);
+                    total[2] += (int)Char.GetNumericValue(charar[i, 2]);
+                    total[3] += (int)Char.GetNumericValue(charar[i, 3]);
+                    total[4] += (int)Char.GetNumericValue(charar[i, 4]);
+                    total[5] += (int)Char.GetNumericValue(charar[i, i]);
+                    total[6] += (int)Char.GetNumericValue(charar[0, i]);
+                    total[7] += (int)Char.GetNumericValue(charar[1, i]);
+                    total[8] += (int)Char.GetNumericValue(charar[2, i]);
+                    total[9] += (int)Char.GetNumericValue(charar[3, i]);
+                    total[10] += (int)Char.GetNumericValue(charar[4, i]);
+                    total[11] += (int)Char.GetNumericValue(charar[4 - i, i]);
+                }
+                for (int i = 0; i < 12; i++)
+                {
+                    MediumTotals[i].Text = total[i].ToString();
+                    MediumTotals[i].SelectionAlignment = HorizontalAlignment.Center;
+                }
+            }
+            if (currentdif == 3)
+            {
+                int[] total = new int[16];
+                for (int i = 0; i < 7; i++)
+                {
+                    total[0] += (int)Char.GetNumericValue(charar[i, 0]);
+                    total[1] += (int)Char.GetNumericValue(charar[i, 1]);
+                    total[2] += (int)Char.GetNumericValue(charar[i, 2]);
+                    total[3] += (int)Char.GetNumericValue(charar[i, 3]);
+                    total[4] += (int)Char.GetNumericValue(charar[i, 4]);
+                    total[5] += (int)Char.GetNumericValue(charar[i, 5]);
+                    total[6] += (int)Char.GetNumericValue(charar[i, 6]);
+
+                    total[7] += (int)Char.GetNumericValue(charar[i, i]);
+                    total[8] += (int)Char.GetNumericValue(charar[0, i]);
+                    total[9] += (int)Char.GetNumericValue(charar[1, i]);
+                    total[10] += (int)Char.GetNumericValue(charar[2, i]);
+                    total[11] += (int)Char.GetNumericValue(charar[3, i]);
+                    total[12] += (int)Char.GetNumericValue(charar[4, i]);
+                    total[13] += (int)Char.GetNumericValue(charar[5, i]);
+                    total[14] += (int)Char.GetNumericValue(charar[6, i]);
+
+                    total[15] += (int)Char.GetNumericValue(charar[6 - i, i]);
+                }
+                for (int i = 0; i < 16; i++)
+                {
+                    HardTotals[i].Text = total[i].ToString();
+                    HardTotals[i].SelectionAlignment = HorizontalAlignment.Center;
+                }
+            }
+        }
+        public void colorInitVals(char[,] charar)
+        {
+            if(currentdif == 1)
+            {
+                for(int i = 0; i < 3; i ++)
+                {
+                    for(int x = 0; x < 3; x++)
+                    {
+                        if(!(charar[x,i] == '0'))
+                        {
+                            EasyBoxes[i, x].BackColor = Color.Gray;
+                        }
+                    
+                    }
+                }
+            }
+            else if (currentdif == 2)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    for (int x = 0; x < 5; x++)
+                    {
+                        if (!(charar[x, i] == '0'))
+                        {
+                            MediumBoxes[i, x].BackColor = Color.Gray;
+                        }
+
+                    }
+                }
+            }
+            else if (currentdif == 3)
+            {
+                for (int i = 0; i < 7; i++)
+                {
+                    for (int x = 0; x < 7; x++)
+                    {
+                        if (!(charar[x, i] == '0'))
+                        {
+                            HardBoxes[i, x].BackColor = Color.Gray;
+                        }
+
+                    }
+                }
+            }
+        }
+    }
 }
