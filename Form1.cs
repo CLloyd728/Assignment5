@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Assignment5
 {
@@ -21,9 +22,38 @@ namespace Assignment5
         RichTextBox[,] HardBoxes = new RichTextBox[7, 7];
         RichTextBox[] HardAnswers = new RichTextBox[16];
         RichTextBox[] HardTotals = new RichTextBox[16];
+        String e1path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\easy\\e1.txt";
+        String e2path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\easy\\e2.txt";
+        String e3path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\easy\\e3.txt";
+        String m1path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\medium\\m1.txt";
+        String m2path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\medium\\m2.txt";
+        String m3path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\medium\\m3.txt";
+        String h1path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\hard\\h1.txt";
+        String h2path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\hard\\h2.txt";
+        String h3path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\hard\\h3.txt";
+        char[,] easyinitial1 = new char[3, 3];
+        char[,] easyinitial2 = new char[3, 3];
+        char[,] easyinitial3 = new char[3, 3];
+        bool[] easycomplete = new bool[3];
+        char[,] mediuminitial1 = new char[5, 5];
+        char[,] mediuminitial2 = new char[5, 5];
+        char[,] mediuminitial3 = new char[5, 5];
+        bool[] mediumcomplete = new bool[3];
+        char[,] hardinitial1 = new char[7, 7];
+        char[,] hardinitial2 = new char[7, 7];
+        char[,] hardinitial3 = new char[7, 7];
+        bool[] hardcomplete = new bool[3];
+
         public Form1()
         {
             InitializeComponent();
+            for (int i = 0; i < 3; i++)
+            {
+                easycomplete[i] = true;
+                mediumcomplete[i] = true;
+                hardcomplete[i] = true;
+            }
+            readin();
         }
         public void clearTotals()
         {
@@ -70,9 +100,23 @@ namespace Assignment5
                     this.EasyBoxes[i, x].Location = new System.Drawing.Point(i*(panel1.Width/3), x*(panel1.Height/3));
                     this.EasyBoxes[i, x].Name = "EasyBox" + i + x;
                     this.EasyBoxes[i, x].Size = new System.Drawing.Size(panel1.Width/3, panel1.Height/3);
-                    this.EasyBoxes[i, x].Text = i.ToString();
                     this.EasyBoxes[i, x].ReadOnly = true;
                     this.EasyBoxes[i, x].SelectionAlignment = HorizontalAlignment.Center;
+                    if(easycomplete[0])
+                    {
+                        if(!easyinitial1[x, i].Equals('0'))
+                            this.EasyBoxes[i, x].Text = easyinitial1[x, i].ToString();
+                    }
+                    else if (easycomplete[1])
+                    {
+                        if (!easyinitial2[x, i].Equals('0'))
+                            this.EasyBoxes[i, x].Text = easyinitial2[x, i].ToString();
+                    }
+                    else if (easycomplete[2])
+                    {
+                        if (!easyinitial3[x, i].Equals('0'))
+                            this.EasyBoxes[i, x].Text = easyinitial3[x, i].ToString();
+                    }
                     panel1.Controls.Add(EasyBoxes[i, x]);
                 }
             }
@@ -174,9 +218,23 @@ namespace Assignment5
                     this.MediumBoxes[i, x].Location = new System.Drawing.Point(i * (panel1.Width / 5), x * (panel1.Height / 5));
                     this.MediumBoxes[i, x].Name = "EasyBox" + i + x;
                     this.MediumBoxes[i, x].Size = new System.Drawing.Size(panel1.Width / 5, panel1.Height / 5);
-                    this.MediumBoxes[i, x].Text = i.ToString();
                     this.MediumBoxes[i, x].ReadOnly = true;
                     this.MediumBoxes[i, x].SelectionAlignment = HorizontalAlignment.Center;
+                    if(mediumcomplete[0])
+                    {
+                        if (!mediuminitial1[x, i].Equals('0'))
+                            this.MediumBoxes[i, x].Text = mediuminitial1[x,i].ToString();
+                    }
+                    else if (mediumcomplete[1])
+                    {
+                        if (!mediuminitial2[x, i].Equals('0'))
+                            this.MediumBoxes[i, x].Text = mediuminitial2[x, i].ToString();
+                    }
+                    else if (mediumcomplete[2])
+                    {
+                        if (!mediuminitial3[x, i].Equals('0'))
+                            this.MediumBoxes[i, x].Text = mediuminitial3[x, i].ToString();
+                    }
                     panel1.Controls.Add(MediumBoxes[i, x]);
                 }
             }
@@ -278,9 +336,27 @@ namespace Assignment5
                     this.HardBoxes[i, x].Location = new System.Drawing.Point(i * (panel1.Width / 7), x * (panel1.Height / 7));
                     this.HardBoxes[i, x].Name = "EasyBox" + i + x;
                     this.HardBoxes[i, x].Size = new System.Drawing.Size(panel1.Width / 7, panel1.Height / 7);
-                    this.HardBoxes[i, x].Text = i.ToString();
-                    this.HardBoxes[i, x].ReadOnly = true;
+                    if (hardcomplete[0])
+                    {
+                        if (!hardinitial1[x, i].Equals('0'))
+                        {
+                            this.HardBoxes[i, x].Text = hardinitial1[x, i].ToString();
+                        }
+                    }
+                    else if (hardcomplete[1])
+                    {
+                        if (!hardinitial2[x, i].Equals('0'))
+                        {
+                            this.HardBoxes[i, x].Text = hardinitial2[x, i].ToString();
+                        }
+                    }
+                    else if (hardcomplete[2])
+                    {
+                        if (!hardinitial3[x, i].Equals('0'))
+                            this.HardBoxes[i, x].Text = hardinitial3[x, i].ToString();
+                    }
                     this.HardBoxes[i, x].SelectionAlignment = HorizontalAlignment.Center;
+                    this.HardBoxes[i, x].ReadOnly = true;
                     panel1.Controls.Add(HardBoxes[i, x]);
                 }
             }
@@ -369,6 +445,61 @@ namespace Assignment5
             this.HardTotals[15].SelectionAlignment = HorizontalAlignment.Center;
             this.Controls.Add(HardTotals[15]);
         }
-
-    }
+        public void readin()
+        {
+            string[] e1lines;
+            string[] e2lines;
+            string[] e3lines;
+            string[] m1lines;
+            string[] m2lines;
+            string[] m3lines;
+            string[] h1lines;
+            string[] h2lines;
+            string[] h3lines;
+            try
+            {
+                e1lines = System.IO.File.ReadAllLines(e1path);
+                e2lines = System.IO.File.ReadAllLines(e2path);
+                e3lines = System.IO.File.ReadAllLines(e3path);
+                m1lines = System.IO.File.ReadAllLines(m1path);
+                m2lines = System.IO.File.ReadAllLines(m2path);
+                m3lines = System.IO.File.ReadAllLines(m3path);
+                h1lines = System.IO.File.ReadAllLines(h1path);
+                h2lines = System.IO.File.ReadAllLines(h2path);
+                h3lines = System.IO.File.ReadAllLines(h3path);
+                for (int i = 0; i < 3; i++)
+                {
+                    for (int x = 0; x < 3; x++)
+                    {
+                        easyinitial1[i, x] = e1lines[i].ElementAt(x);
+                        easyinitial2[i, x] = e2lines[i].ElementAt(x);
+                        easyinitial3[i, x] = e3lines[i].ElementAt(x);
+                    }
+                }
+                for (int i = 0; i < 5; i++)
+                {
+                    for (int x = 0; x < 5; x++)
+                    {
+                        mediuminitial1[i, x] = m1lines[i].ElementAt(x);
+                        mediuminitial2[i, x] = m2lines[i].ElementAt(x);
+                        mediuminitial3[i, x] = m3lines[i].ElementAt(x);
+                    }
+                }
+                for (int i = 0; i < 7; i++)
+                {
+                    for (int x = 0; x < 7; x++)
+                    {
+                        hardinitial1[i, x] = h1lines[i].ElementAt(x);
+                        hardinitial2[i, x] = h2lines[i].ElementAt(x);
+                        hardinitial3[i, x] = h3lines[i].ElementAt(x);
+                    }
+                }
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+            
+        }
+        }
 }
