@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -78,7 +78,7 @@ namespace Assignment5
         {
             foreach (RichTextBox r in EasyAnswers)
             {
-                if(r != null)
+                if (r != null)
                     r.Dispose();
             }
             foreach (RichTextBox r in EasyTotals)
@@ -112,20 +112,22 @@ namespace Assignment5
             currentdif = 1;
             panel1.Controls.Clear();
             for (int i = 0; i < 3; i++)
-            { 
-                for(int x = 0; x < 3; x++)
+            {
+                for (int x = 0; x < 3; x++)
                 {
-                    EasyBoxes[i,x] = new System.Windows.Forms.RichTextBox();
-                    this.EasyBoxes[i,x].Font = new System.Drawing.Font("Microsoft Sans Serif", 88F);
-                    this.EasyBoxes[i, x].Location = new System.Drawing.Point(i*(panel1.Width/3), x*(panel1.Height/3));
+                    EasyBoxes[i, x] = new System.Windows.Forms.RichTextBox();
+                    this.EasyBoxes[i, x].Font = new System.Drawing.Font("Microsoft Sans Serif", 88F);
+                    this.EasyBoxes[i, x].Location = new System.Drawing.Point(i * (panel1.Width / 3), x * (panel1.Height / 3));
                     this.EasyBoxes[i, x].Name = "EasyBox" + i + x;
-                    this.EasyBoxes[i, x].Size = new System.Drawing.Size(panel1.Width/3, panel1.Height/3);
-                    this.EasyBoxes[i, x].ReadOnly = true;
+                    this.EasyBoxes[i, x].Size = new System.Drawing.Size(panel1.Width / 3, panel1.Height / 3);
                     this.EasyBoxes[i, x].SelectionAlignment = HorizontalAlignment.Center;
-                    if(easycomplete[0])
+                    if (easycomplete[0])
                     {
-                        if(!easyinitial1[x, i].Equals('0'))
+                        if (!easyinitial1[x, i].Equals('0'))
+                        {
                             this.EasyBoxes[i, x].Text = easyinitial1[x, i].ToString();
+                            this.EasyBoxes[i, x].ReadOnly = true;
+                        }
                     }
                     else if (easycomplete[1])
                     {
@@ -166,7 +168,7 @@ namespace Assignment5
             }
             EasyAnswers[3] = new System.Windows.Forms.RichTextBox();
             this.EasyAnswers[3].Font = new System.Drawing.Font("Microsoft Sans Serif", 44F);
-            this.EasyAnswers[3].Location = new System.Drawing.Point(panel1.Location.X - (panel1.Width / 3) - 15, panel1.Location.Y  - (panel1.Height / 3) - 15);
+            this.EasyAnswers[3].Location = new System.Drawing.Point(panel1.Location.X - (panel1.Width / 3) - 15, panel1.Location.Y - (panel1.Height / 3) - 15);
             this.EasyAnswers[3].Name = "EasyAnswer" + 3;
             this.EasyAnswers[3].Size = new System.Drawing.Size(panel1.Width / 3, panel1.Height / 3);
             this.EasyAnswers[3].Text = 3.ToString();
@@ -187,7 +189,7 @@ namespace Assignment5
             {
                 EasyAnswers[i] = new System.Windows.Forms.RichTextBox();
                 this.EasyAnswers[i].Font = new System.Drawing.Font("Microsoft Sans Serif", 44F);
-                this.EasyAnswers[i].Location = new System.Drawing.Point(panel1.Location.X - (panel1.Width / 3) - 15, panel1.Location.Y + ((i-4) * (panel1.Height / 3)));
+                this.EasyAnswers[i].Location = new System.Drawing.Point(panel1.Location.X - (panel1.Width / 3) - 15, panel1.Location.Y + ((i - 4) * (panel1.Height / 3)));
                 this.EasyAnswers[i].Name = "EasyAnswer" + i;
                 this.EasyAnswers[i].Size = new System.Drawing.Size(panel1.Width / 3, panel1.Height / 3);
                 this.EasyAnswers[i].Text = i.ToString();
@@ -197,7 +199,7 @@ namespace Assignment5
                 this.Controls.Add(EasyAnswers[i]);
                 EasyTotals[i] = new System.Windows.Forms.RichTextBox();
                 this.EasyTotals[i].Font = new System.Drawing.Font("Microsoft Sans Serif", 44F);
-                this.EasyTotals[i].Location = new System.Drawing.Point(panel1.Location.X + panel1.Width + 15, panel1.Location.Y + ((i-4) * (panel1.Height / 3)));
+                this.EasyTotals[i].Location = new System.Drawing.Point(panel1.Location.X + panel1.Width + 15, panel1.Location.Y + ((i - 4) * (panel1.Height / 3)));
                 this.EasyTotals[i].Name = "EasyTotal" + i;
                 this.EasyTotals[i].Size = new System.Drawing.Size(panel1.Width / 3, panel1.Height / 3);
                 this.EasyTotals[i].Text = i.ToString();
@@ -229,7 +231,7 @@ namespace Assignment5
                 if (easycurrent == null)
                     easycurrent = easyinitial1;
                 setCurrentTotals(easycurrent);
-                setAnsTotals(easyans1); 
+                setAnsTotals(easyans1);
             }
             else if (easycomplete[1])
             {
@@ -243,9 +245,50 @@ namespace Assignment5
                 if (easycurrent == null)
                     easycurrent = easyinitial3;
                 setCurrentTotals(easycurrent);
-                setAnsTotals(easyans3); 
+                setAnsTotals(easyans3);
             }
             colorInitVals(easycurrent);
+            
+            // bind the event handlers for changing editable text boxes in easy puzzles
+            EasyBoxes[0, 0].TextChanged += (sender2, e2) => easy_box_changed(sender2, e2, 0, 0);
+            EasyBoxes[0, 1].TextChanged += (sender2, e2) => easy_box_changed(sender2, e2, 0, 1);
+            EasyBoxes[0, 2].TextChanged += (sender2, e2) => easy_box_changed(sender2, e2, 0, 2);
+            EasyBoxes[1, 0].TextChanged += (sender2, e2) => easy_box_changed(sender2, e2, 1, 0);
+            EasyBoxes[1, 1].TextChanged += (sender2, e2) => easy_box_changed(sender2, e2, 1, 1);
+            EasyBoxes[1, 2].TextChanged += (sender2, e2) => easy_box_changed(sender2, e2, 1, 2);
+            EasyBoxes[2, 0].TextChanged += (sender2, e2) => easy_box_changed(sender2, e2, 2, 0);
+            EasyBoxes[2, 1].TextChanged += (sender2, e2) => easy_box_changed(sender2, e2, 2, 1);
+            EasyBoxes[2, 2].TextChanged += (sender2, e2) => easy_box_changed(sender2, e2, 2, 2);        
+        }
+
+        protected void easy_box_changed(object sender, EventArgs e, int x, int y)
+        {
+            if (!(EasyBoxes[x, y].Text.Length == 1))
+            {
+                easycurrent[x, y] = Convert.ToChar('0');
+                EasyBoxes[x, y].Text = "";
+            }
+            else
+                easycurrent[x, y] = Convert.ToChar(EasyBoxes[x, y].Text);
+
+            setCurrentTotals(easycurrent);
+
+            if(easyWin())
+                MessageBox.Show("YOU WIN!");
+            
+        }
+        
+        public bool easyWin()
+        {
+            for (int i = 0; i < 8; i++)
+                if (i != 3 && i != 7)
+                    if (EasyTotals[i].Text != EasyAnswers[i].Text)
+                        return false;
+
+            if (EasyTotals[3].Text != EasyAnswers[7].Text || EasyTotals[7].Text != EasyAnswers[3].Text)
+                return false;
+
+            return true;                 
         }
 
         private void mediumToolStripMenuItem_Click(object sender, EventArgs e)
@@ -261,22 +304,30 @@ namespace Assignment5
                     this.MediumBoxes[i, x].Location = new System.Drawing.Point(i * (panel1.Width / 5), x * (panel1.Height / 5));
                     this.MediumBoxes[i, x].Name = "EasyBox" + i + x;
                     this.MediumBoxes[i, x].Size = new System.Drawing.Size(panel1.Width / 5, panel1.Height / 5);
-                    this.MediumBoxes[i, x].ReadOnly = true;
                     this.MediumBoxes[i, x].SelectionAlignment = HorizontalAlignment.Center;
-                    if(mediumcomplete[0])
+                    if (mediumcomplete[0])
                     {
                         if (!mediuminitial1[x, i].Equals('0'))
-                            this.MediumBoxes[i, x].Text = mediuminitial1[x,i].ToString();
+                        {
+                            MediumBoxes[i, x].Text = mediuminitial1[x, i].ToString();
+                            MediumBoxes[i, x].ReadOnly = true;
+                        }
                     }
                     else if (mediumcomplete[1])
                     {
                         if (!mediuminitial2[x, i].Equals('0'))
-                            this.MediumBoxes[i, x].Text = mediuminitial2[x, i].ToString();
+                        {
+                            MediumBoxes[i, x].Text = mediuminitial2[x, i].ToString();
+                            MediumBoxes[i, x].ReadOnly = true;
+                        }
                     }
                     else if (mediumcomplete[2])
                     {
                         if (!mediuminitial3[x, i].Equals('0'))
-                            this.MediumBoxes[i, x].Text = mediuminitial3[x, i].ToString();
+                        {
+                            MediumBoxes[i, x].Text = mediuminitial3[x, i].ToString();
+                            MediumBoxes[i, x].ReadOnly = true;
+                        }
                     }
                     panel1.Controls.Add(MediumBoxes[i, x]);
                 }
@@ -387,8 +438,63 @@ namespace Assignment5
                 setAnsTotals(mediumans3);
             }
             colorInitVals(mediumcurrent);
+
+            // bind the event handlers for changing editable text boxes in easy puzzles
+            MediumBoxes[0, 0].TextChanged += (sender2, e2) => medium_box_changed(sender2, e2, 0, 0);
+            MediumBoxes[0, 1].TextChanged += (sender2, e2) => medium_box_changed(sender2, e2, 0, 1);
+            MediumBoxes[0, 2].TextChanged += (sender2, e2) => medium_box_changed(sender2, e2, 0, 2);
+            MediumBoxes[0, 3].TextChanged += (sender2, e2) => medium_box_changed(sender2, e2, 0, 3);
+            MediumBoxes[0, 4].TextChanged += (sender2, e2) => medium_box_changed(sender2, e2, 0, 4);
+            MediumBoxes[1, 0].TextChanged += (sender2, e2) => medium_box_changed(sender2, e2, 1, 0);
+            MediumBoxes[1, 1].TextChanged += (sender2, e2) => medium_box_changed(sender2, e2, 1, 1);
+            MediumBoxes[1, 2].TextChanged += (sender2, e2) => medium_box_changed(sender2, e2, 1, 2);
+            MediumBoxes[1, 3].TextChanged += (sender2, e2) => medium_box_changed(sender2, e2, 1, 3);
+            MediumBoxes[1, 4].TextChanged += (sender2, e2) => medium_box_changed(sender2, e2, 1, 4);
+            MediumBoxes[2, 0].TextChanged += (sender2, e2) => medium_box_changed(sender2, e2, 2, 0);
+            MediumBoxes[2, 1].TextChanged += (sender2, e2) => medium_box_changed(sender2, e2, 2, 1);
+            MediumBoxes[2, 2].TextChanged += (sender2, e2) => medium_box_changed(sender2, e2, 2, 2);
+            MediumBoxes[2, 3].TextChanged += (sender2, e2) => medium_box_changed(sender2, e2, 2, 3);
+            MediumBoxes[2, 4].TextChanged += (sender2, e2) => medium_box_changed(sender2, e2, 2, 4);
+            MediumBoxes[3, 0].TextChanged += (sender2, e2) => medium_box_changed(sender2, e2, 3, 0);
+            MediumBoxes[3, 1].TextChanged += (sender2, e2) => medium_box_changed(sender2, e2, 3, 1);
+            MediumBoxes[3, 2].TextChanged += (sender2, e2) => medium_box_changed(sender2, e2, 3, 2);
+            MediumBoxes[3, 3].TextChanged += (sender2, e2) => medium_box_changed(sender2, e2, 3, 3);
+            MediumBoxes[3, 4].TextChanged += (sender2, e2) => medium_box_changed(sender2, e2, 3, 4);
+            MediumBoxes[4, 0].TextChanged += (sender2, e2) => medium_box_changed(sender2, e2, 4, 0);
+            MediumBoxes[4, 1].TextChanged += (sender2, e2) => medium_box_changed(sender2, e2, 4, 1);
+            MediumBoxes[4, 2].TextChanged += (sender2, e2) => medium_box_changed(sender2, e2, 4, 2);
+            MediumBoxes[4, 3].TextChanged += (sender2, e2) => medium_box_changed(sender2, e2, 4, 3);
+            MediumBoxes[4, 4].TextChanged += (sender2, e2) => medium_box_changed(sender2, e2, 4, 4);
         }
 
+        protected void medium_box_changed(object s, EventArgs e, int x, int y)
+        {
+            if (!(MediumBoxes[x, y].Text.Length == 1))
+            {
+                mediumcurrent[x, y] = Convert.ToChar('0');
+                MediumBoxes[x, y].Text = "";
+            }
+            else
+                mediumcurrent[x, y] = Convert.ToChar(MediumBoxes[x, y].Text);
+
+            setCurrentTotals(mediumcurrent);
+
+            if (mediumWin())
+                MessageBox.Show("YOU WIN!");
+        }
+
+        public bool mediumWin()
+        {
+            for (int i = 0; i < 12; i++)
+                if (i != 5 && i != 11)
+                    if (MediumTotals[i].Text != MediumAnswers[i].Text)
+                        return false;
+
+            if (MediumTotals[5].Text != MediumAnswers[11].Text || MediumTotals[11].Text != MediumAnswers[5].Text)
+                return false;
+
+            return true;
+        }
         private void hardToolStripMenuItem_Click(object sender, EventArgs e)
         {
             currentdif = 3;
@@ -464,7 +570,7 @@ namespace Assignment5
             this.HardTotals[7].Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
             this.HardTotals[7].Location = new System.Drawing.Point(panel1.Location.X + panel1.Width + 15, panel1.Location.Y - (panel1.Height / 7) - 15);
             this.HardTotals[7].Name = "EasyTotal" + 7;
-            this.HardTotals[7].Size = new System.Drawing.Size(panel1.Width /7, panel1.Height / 7);
+            this.HardTotals[7].Size = new System.Drawing.Size(panel1.Width / 7, panel1.Height / 7);
             this.HardTotals[7].Text = 7.ToString();
             this.HardTotals[7].ReadOnly = true;
             this.HardTotals[7].SelectionAlignment = HorizontalAlignment.Center;
@@ -562,9 +668,9 @@ namespace Assignment5
                         easyinitial1[i, x] = e1lines[i].ElementAt(x);
                         easyinitial2[i, x] = e2lines[i].ElementAt(x);
                         easyinitial3[i, x] = e3lines[i].ElementAt(x);
-                        easyans1[i, x] = e1lines[i+4].ElementAt(x);
-                        easyans2[i, x] = e2lines[i+4].ElementAt(x);
-                        easyans3[i, x] = e3lines[i+4].ElementAt(x);
+                        easyans1[i, x] = e1lines[i + 4].ElementAt(x);
+                        easyans2[i, x] = e2lines[i + 4].ElementAt(x);
+                        easyans3[i, x] = e3lines[i + 4].ElementAt(x);
                     }
                 }
                 for (int i = 0; i < 5; i++)
@@ -574,9 +680,9 @@ namespace Assignment5
                         mediuminitial1[i, x] = m1lines[i].ElementAt(x);
                         mediuminitial2[i, x] = m2lines[i].ElementAt(x);
                         mediuminitial3[i, x] = m3lines[i].ElementAt(x);
-                        mediumans1[i, x] = m1lines[i+6].ElementAt(x);
-                        mediumans2[i, x] = m2lines[i+6].ElementAt(x);
-                        mediumans3[i, x] = m3lines[i+6].ElementAt(x);
+                        mediumans1[i, x] = m1lines[i + 6].ElementAt(x);
+                        mediumans2[i, x] = m2lines[i + 6].ElementAt(x);
+                        mediumans3[i, x] = m3lines[i + 6].ElementAt(x);
                     }
                 }
                 for (int i = 0; i < 7; i++)
@@ -586,20 +692,20 @@ namespace Assignment5
                         hardinitial1[i, x] = h1lines[i].ElementAt(x);
                         hardinitial2[i, x] = h2lines[i].ElementAt(x);
                         hardinitial3[i, x] = h3lines[i].ElementAt(x);
-                        hardans1[i, x] = h1lines[i+8].ElementAt(x);
-                        hardans2[i, x] = h2lines[i+8].ElementAt(x);
-                        hardans3[i, x] = h3lines[i+8].ElementAt(x);
+                        hardans1[i, x] = h1lines[i + 8].ElementAt(x);
+                        hardans2[i, x] = h2lines[i + 8].ElementAt(x);
+                        hardans3[i, x] = h3lines[i + 8].ElementAt(x);
                     }
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 MessageBox.Show(e.ToString());
             }
         }
         public void setAnsTotals(char[,] charar)
         {
-            if(currentdif == 1)
+            if (currentdif == 1)
             {
                 int[] total = new int[8];
                 for (int i = 0; i < 3; i++)
@@ -611,16 +717,16 @@ namespace Assignment5
                     total[4] += (int)Char.GetNumericValue(charar[0, i]);
                     total[5] += (int)Char.GetNumericValue(charar[1, i]);
                     total[6] += (int)Char.GetNumericValue(charar[2, i]);
-                    total[7] += (int)Char.GetNumericValue(charar[2-i, i]);
+                    total[7] += (int)Char.GetNumericValue(charar[2 - i, i]);
                 }
                 for (int i = 0; i < 8; i++)
                 {
                     EasyAnswers[i].Text = total[i].ToString();
                     EasyAnswers[i].SelectionAlignment = HorizontalAlignment.Center;
                 }
- 
+
             }
-            if(currentdif == 2)
+            if (currentdif == 2)
             {
                 int[] total = new int[12];
                 for (int i = 0; i < 5; i++)
@@ -656,7 +762,6 @@ namespace Assignment5
                     total[4] += (int)Char.GetNumericValue(charar[i, 4]);
                     total[5] += (int)Char.GetNumericValue(charar[i, 5]);
                     total[6] += (int)Char.GetNumericValue(charar[i, 6]);
-
                     total[7] += (int)Char.GetNumericValue(charar[i, i]);
                     total[8] += (int)Char.GetNumericValue(charar[0, i]);
                     total[9] += (int)Char.GetNumericValue(charar[1, i]);
@@ -665,7 +770,6 @@ namespace Assignment5
                     total[12] += (int)Char.GetNumericValue(charar[4, i]);
                     total[13] += (int)Char.GetNumericValue(charar[5, i]);
                     total[14] += (int)Char.GetNumericValue(charar[6, i]);
-
                     total[15] += (int)Char.GetNumericValue(charar[6 - i, i]);
                 }
                 for (int i = 0; i < 16; i++)
@@ -681,19 +785,20 @@ namespace Assignment5
             if (currentdif == 1)
             {
                 int[] total = new int[8];
-                for (int i = 0; i < 3; i++)
-                {
-                    total[0] += (int)Char.GetNumericValue(charar[i, 0]);
-                    total[1] += (int)Char.GetNumericValue(charar[i, 1]);
-                    total[2] += (int)Char.GetNumericValue(charar[i, 2]);
-                    total[3] += (int)Char.GetNumericValue(charar[i, i]);
-                    total[4] += (int)Char.GetNumericValue(charar[0, i]);
-                    total[5] += (int)Char.GetNumericValue(charar[1, i]);
-                    total[6] += (int)Char.GetNumericValue(charar[2, i]);
-                    total[7] += (int)Char.GetNumericValue(charar[2 - i, i]);
-                }
+
+                // get the proper values to calculate totals (indexes werent working as expected so i hardcoded the values, will fix if time allows)
+                total[0] = (int)Char.GetNumericValue(charar[0, 0]) + (int)Char.GetNumericValue(charar[1, 0]) + (int)Char.GetNumericValue(charar[0, 2]);
+                total[1] = (int)Char.GetNumericValue(charar[0, 1]) + (int)Char.GetNumericValue(charar[1, 1]) + (int)Char.GetNumericValue(charar[2, 1]);
+                total[2] = (int)Char.GetNumericValue(charar[2, 0]) + (int)Char.GetNumericValue(charar[1, 2]) + (int)Char.GetNumericValue(charar[2, 2]);
+                total[3] = (int)Char.GetNumericValue(charar[2, 0]) + (int)Char.GetNumericValue(charar[1, 1]) + (int)Char.GetNumericValue(charar[0, 2]);
+                total[4] = (int)Char.GetNumericValue(charar[0, 0]) + (int)Char.GetNumericValue(charar[0, 1]) + (int)Char.GetNumericValue(charar[2, 0]);
+                total[5] = (int)Char.GetNumericValue(charar[1, 0]) + (int)Char.GetNumericValue(charar[1, 1]) + (int)Char.GetNumericValue(charar[1, 2]);
+                total[6] = (int)Char.GetNumericValue(charar[0, 2]) + (int)Char.GetNumericValue(charar[2, 1]) + (int)Char.GetNumericValue(charar[2, 2]);
+                total[7] = (int)Char.GetNumericValue(charar[0, 0]) + (int)Char.GetNumericValue(charar[1, 1]) + (int)Char.GetNumericValue(charar[2, 2]);
+
                 for (int i = 0; i < 8; i++)
                 {
+
                     EasyTotals[i].Text = total[i].ToString();
                     EasyTotals[i].SelectionAlignment = HorizontalAlignment.Center;
                 }
@@ -702,21 +807,32 @@ namespace Assignment5
             if (currentdif == 2)
             {
                 int[] total = new int[12];
-                for (int i = 0; i < 5; i++)
-                {
-                    total[0] += (int)Char.GetNumericValue(charar[i, 0]);
-                    total[1] += (int)Char.GetNumericValue(charar[i, 1]);
-                    total[2] += (int)Char.GetNumericValue(charar[i, 2]);
-                    total[3] += (int)Char.GetNumericValue(charar[i, 3]);
-                    total[4] += (int)Char.GetNumericValue(charar[i, 4]);
-                    total[5] += (int)Char.GetNumericValue(charar[i, i]);
-                    total[6] += (int)Char.GetNumericValue(charar[0, i]);
-                    total[7] += (int)Char.GetNumericValue(charar[1, i]);
-                    total[8] += (int)Char.GetNumericValue(charar[2, i]);
-                    total[9] += (int)Char.GetNumericValue(charar[3, i]);
-                    total[10] += (int)Char.GetNumericValue(charar[4, i]);
-                    total[11] += (int)Char.GetNumericValue(charar[4 - i, i]);
-                }
+
+                total[0] = (int)Char.GetNumericValue(charar[0, 0]) + (int)Char.GetNumericValue(charar[1, 0]) + (int)Char.GetNumericValue(charar[0, 2]) + 
+                           (int)Char.GetNumericValue(charar[3, 0]) + (int)Char.GetNumericValue(charar[0, 4]);
+                total[1] = (int)Char.GetNumericValue(charar[0, 1]) + (int)Char.GetNumericValue(charar[1, 1]) + (int)Char.GetNumericValue(charar[1, 2]) +
+                           (int)Char.GetNumericValue(charar[1, 3]) + (int)Char.GetNumericValue(charar[1, 4]);
+                total[2] = (int)Char.GetNumericValue(charar[2, 0]) + (int)Char.GetNumericValue(charar[1, 2]) + (int)Char.GetNumericValue(charar[2, 2]) +
+                           (int)Char.GetNumericValue(charar[3, 2]) + (int)Char.GetNumericValue(charar[2, 4]);
+                total[3] = (int)Char.GetNumericValue(charar[0, 3]) + (int)Char.GetNumericValue(charar[3, 1]) + (int)Char.GetNumericValue(charar[2, 3]) +
+                           (int)Char.GetNumericValue(charar[3, 3]) + (int)Char.GetNumericValue(charar[4, 3]);
+                total[4] = (int)Char.GetNumericValue(charar[4, 0]) + (int)Char.GetNumericValue(charar[1, 4]) + (int)Char.GetNumericValue(charar[3, 4]) + 
+                           (int)Char.GetNumericValue(charar[4, 4]) + (int)Char.GetNumericValue(charar[4, 2]);
+                total[5] = (int)Char.GetNumericValue(charar[4, 0]) + (int)Char.GetNumericValue(charar[3, 1]) + (int)Char.GetNumericValue(charar[2, 2]) +
+                           (int)Char.GetNumericValue(charar[1, 3]) + (int)Char.GetNumericValue(charar[0, 4]);
+                total[6] = (int)Char.GetNumericValue(charar[0, 0]) + (int)Char.GetNumericValue(charar[0, 1]) + (int)Char.GetNumericValue(charar[2, 0]) +
+                           (int)Char.GetNumericValue(charar[0, 3]) + (int)Char.GetNumericValue(charar[4, 0]);
+                total[7] = (int)Char.GetNumericValue(charar[1, 0]) + (int)Char.GetNumericValue(charar[1, 1]) + (int)Char.GetNumericValue(charar[1, 2]) +
+                           (int)Char.GetNumericValue(charar[3, 1]) + (int)Char.GetNumericValue(charar[1, 4]);
+                total[8] = (int)Char.GetNumericValue(charar[0, 2]) + (int)Char.GetNumericValue(charar[2, 1]) + (int)Char.GetNumericValue(charar[2, 2]) +
+                           (int)Char.GetNumericValue(charar[2, 3]) + (int)Char.GetNumericValue(charar[4, 2]);
+                total[9] = (int)Char.GetNumericValue(charar[3, 0]) + (int)Char.GetNumericValue(charar[1, 3]) + (int)Char.GetNumericValue(charar[3, 2]) +
+                           (int)Char.GetNumericValue(charar[3, 3]) + (int)Char.GetNumericValue(charar[3, 4]);
+                total[10] = (int)Char.GetNumericValue(charar[0, 4]) + (int)Char.GetNumericValue(charar[4, 1]) + (int)Char.GetNumericValue(charar[2, 4]) +
+                            (int)Char.GetNumericValue(charar[4, 3]) + (int)Char.GetNumericValue(charar[4, 4]);
+                total[11] = (int)Char.GetNumericValue(charar[0, 0]) + (int)Char.GetNumericValue(charar[1, 1]) + (int)Char.GetNumericValue(charar[2, 2]) +
+                            (int)Char.GetNumericValue(charar[3, 3]) + (int)Char.GetNumericValue(charar[4, 4]);
+
                 for (int i = 0; i < 12; i++)
                 {
                     MediumTotals[i].Text = total[i].ToString();
@@ -756,17 +872,17 @@ namespace Assignment5
         }
         public void colorInitVals(char[,] charar)
         {
-            if(currentdif == 1)
+            if (currentdif == 1)
             {
-                for(int i = 0; i < 3; i ++)
+                for (int i = 0; i < 3; i++)
                 {
-                    for(int x = 0; x < 3; x++)
+                    for (int x = 0; x < 3; x++)
                     {
-                        if(!(charar[x,i] == '0'))
+                        if (!(charar[x, i] == '0'))
                         {
                             EasyBoxes[i, x].BackColor = Color.Gray;
                         }
-                    
+
                     }
                 }
             }
