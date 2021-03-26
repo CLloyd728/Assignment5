@@ -114,6 +114,8 @@ namespace Assignment5
         }
         private void easyToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //easycomplete[0] = false;
+            //easycomplete[1] = false;
             currentdif = 1;
             panel1.Controls.Clear();
             for (int i = 0; i < 3; i++)
@@ -308,6 +310,8 @@ namespace Assignment5
 
         private void mediumToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //mediumcomplete[0] = false;
+            //mediumcomplete[1] = false;
             currentdif = 2;
             panel1.Controls.Clear();
             for (int i = 0; i < 5; i++)
@@ -515,6 +519,8 @@ namespace Assignment5
         }
         private void hardToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //hardcomplete[0] = false;
+            //hardcomplete[1] = false;
             currentdif = 3;
             panel1.Controls.Clear();
             for (int i = 0; i < 7; i++)
@@ -809,7 +815,7 @@ namespace Assignment5
                 MessageBox.Show(e.ToString());
             }
         }
-        public void setAnsTotals(char[,] charar)
+        /*public void setAnsTotals(char[,] charar)
         {
             if (currentdif == 1)
             {
@@ -887,27 +893,103 @@ namespace Assignment5
                     HardAnswers[i].SelectionAlignment = HorizontalAlignment.Center;
                 }
             }
-        }
+        }*/
+        public void setAnsTotals(char[,] charar)
+        {
+            if (currentdif == 1)
+            {
+                int[] total = new int[8];
+                for (int i = 0; i < 3; i++)
+                {
+                    total[0] += (int)Char.GetNumericValue(charar[i, 0]);
+                    total[1] += (int)Char.GetNumericValue(charar[i, 1]);
+                    total[2] += (int)Char.GetNumericValue(charar[i, 2]);
+                    total[3] += (int)Char.GetNumericValue(charar[i, i]);
+                    total[4] += (int)Char.GetNumericValue(charar[0, i]);
+                    total[5] += (int)Char.GetNumericValue(charar[1, i]);
+                    total[6] += (int)Char.GetNumericValue(charar[2, i]);
+                    total[7] += (int)Char.GetNumericValue(charar[2 - i, i]);
+                }
+                for (int i = 0; i < 8; i++)
+                {
+                    EasyAnswers[i].Text = total[i].ToString();
+                    EasyAnswers[i].SelectionAlignment = HorizontalAlignment.Center;
+                }
 
+            }
+            if (currentdif == 2)
+            {
+                int[] total = new int[12];
+                for (int i = 0; i < 5; i++)
+                {
+                    total[0] += (int)Char.GetNumericValue(charar[i, 0]);
+                    total[1] += (int)Char.GetNumericValue(charar[i, 1]);
+                    total[2] += (int)Char.GetNumericValue(charar[i, 2]);
+                    total[3] += (int)Char.GetNumericValue(charar[i, 3]);
+                    total[4] += (int)Char.GetNumericValue(charar[i, 4]);
+                    total[5] += (int)Char.GetNumericValue(charar[i, i]);
+                    total[6] += (int)Char.GetNumericValue(charar[0, i]);
+                    total[7] += (int)Char.GetNumericValue(charar[1, i]);
+                    total[8] += (int)Char.GetNumericValue(charar[2, i]);
+                    total[9] += (int)Char.GetNumericValue(charar[3, i]);
+                    total[10] += (int)Char.GetNumericValue(charar[4, i]);
+                    total[11] += (int)Char.GetNumericValue(charar[4 - i, i]);
+                }
+                for (int i = 0; i < 12; i++)
+                {
+                    MediumAnswers[i].Text = total[i].ToString();
+                    MediumAnswers[i].SelectionAlignment = HorizontalAlignment.Center;
+                }
+            }
+            if (currentdif == 3)
+            {
+                int[] total = new int[16];
+                for (int i = 0; i < 7; i++)
+                {
+                    total[0] += (int)Char.GetNumericValue(charar[i, 0]);
+                    total[1] += (int)Char.GetNumericValue(charar[i, 1]);
+                    total[2] += (int)Char.GetNumericValue(charar[i, 2]);
+                    total[3] += (int)Char.GetNumericValue(charar[i, 3]);
+                    total[4] += (int)Char.GetNumericValue(charar[i, 4]);
+                    total[5] += (int)Char.GetNumericValue(charar[i, 5]);
+                    total[6] += (int)Char.GetNumericValue(charar[i, 6]);
+
+                    total[7] += (int)Char.GetNumericValue(charar[i, i]);
+                    total[8] += (int)Char.GetNumericValue(charar[0, i]);
+                    total[9] += (int)Char.GetNumericValue(charar[1, i]);
+                    total[10] += (int)Char.GetNumericValue(charar[2, i]);
+                    total[11] += (int)Char.GetNumericValue(charar[3, i]);
+                    total[12] += (int)Char.GetNumericValue(charar[4, i]);
+                    total[13] += (int)Char.GetNumericValue(charar[5, i]);
+                    total[14] += (int)Char.GetNumericValue(charar[6, i]);
+
+                    total[15] += (int)Char.GetNumericValue(charar[6 - i, i]);
+                }
+                for (int i = 0; i < 16; i++)
+                {
+                    HardAnswers[i].Text = total[i].ToString();
+                    HardAnswers[i].SelectionAlignment = HorizontalAlignment.Center;
+                }
+            }
+        }
         public void setCurrentTotals(char[,] charar)
         {
             if (currentdif == 1)
             {
                 int[] total = new int[8];
-
-                // get the proper values to calculate totals (indexes werent working as expected so i hardcoded the values, will fix if time allows)
-                total[0] = (int)Char.GetNumericValue(charar[0, 0]) + (int)Char.GetNumericValue(charar[1, 0]) + (int)Char.GetNumericValue(charar[0, 2]);
-                total[1] = (int)Char.GetNumericValue(charar[0, 1]) + (int)Char.GetNumericValue(charar[1, 1]) + (int)Char.GetNumericValue(charar[2, 1]);
-                total[2] = (int)Char.GetNumericValue(charar[2, 0]) + (int)Char.GetNumericValue(charar[1, 2]) + (int)Char.GetNumericValue(charar[2, 2]);
-                total[3] = (int)Char.GetNumericValue(charar[2, 0]) + (int)Char.GetNumericValue(charar[1, 1]) + (int)Char.GetNumericValue(charar[0, 2]);
-                total[4] = (int)Char.GetNumericValue(charar[0, 0]) + (int)Char.GetNumericValue(charar[0, 1]) + (int)Char.GetNumericValue(charar[2, 0]);
-                total[5] = (int)Char.GetNumericValue(charar[1, 0]) + (int)Char.GetNumericValue(charar[1, 1]) + (int)Char.GetNumericValue(charar[1, 2]);
-                total[6] = (int)Char.GetNumericValue(charar[0, 2]) + (int)Char.GetNumericValue(charar[2, 1]) + (int)Char.GetNumericValue(charar[2, 2]);
-                total[7] = (int)Char.GetNumericValue(charar[0, 0]) + (int)Char.GetNumericValue(charar[1, 1]) + (int)Char.GetNumericValue(charar[2, 2]);
-
+                for (int i = 0; i < 3; i++)
+                {
+                    total[0] += (int)Char.GetNumericValue(charar[i, 0]);
+                    total[1] += (int)Char.GetNumericValue(charar[i, 1]);
+                    total[2] += (int)Char.GetNumericValue(charar[i, 2]);
+                    total[7] += (int)Char.GetNumericValue(charar[i, i]);
+                    total[4] += (int)Char.GetNumericValue(charar[0, i]);
+                    total[5] += (int)Char.GetNumericValue(charar[1, i]);
+                    total[6] += (int)Char.GetNumericValue(charar[2, i]);
+                    total[3] += (int)Char.GetNumericValue(charar[2 - i, i]);
+                }
                 for (int i = 0; i < 8; i++)
                 {
-
                     EasyTotals[i].Text = total[i].ToString();
                     EasyTotals[i].SelectionAlignment = HorizontalAlignment.Center;
                 }
@@ -916,33 +998,21 @@ namespace Assignment5
             if (currentdif == 2)
             {
                 int[] total = new int[12];
-
-                // get the proper values to calculate totals (indexes werent working as expected so i hardcoded the values, will fix if time allows)
-                total[0] = (int)Char.GetNumericValue(charar[0, 0]) + (int)Char.GetNumericValue(charar[1, 0]) + (int)Char.GetNumericValue(charar[0, 2]) + 
-                           (int)Char.GetNumericValue(charar[3, 0]) + (int)Char.GetNumericValue(charar[0, 4]);
-                total[1] = (int)Char.GetNumericValue(charar[0, 1]) + (int)Char.GetNumericValue(charar[1, 1]) + (int)Char.GetNumericValue(charar[1, 2]) +
-                           (int)Char.GetNumericValue(charar[1, 3]) + (int)Char.GetNumericValue(charar[1, 4]);
-                total[2] = (int)Char.GetNumericValue(charar[2, 0]) + (int)Char.GetNumericValue(charar[1, 2]) + (int)Char.GetNumericValue(charar[2, 2]) +
-                           (int)Char.GetNumericValue(charar[3, 2]) + (int)Char.GetNumericValue(charar[2, 4]);
-                total[3] = (int)Char.GetNumericValue(charar[0, 3]) + (int)Char.GetNumericValue(charar[3, 1]) + (int)Char.GetNumericValue(charar[2, 3]) +
-                           (int)Char.GetNumericValue(charar[3, 3]) + (int)Char.GetNumericValue(charar[4, 3]);
-                total[4] = (int)Char.GetNumericValue(charar[4, 0]) + (int)Char.GetNumericValue(charar[1, 4]) + (int)Char.GetNumericValue(charar[3, 4]) + 
-                           (int)Char.GetNumericValue(charar[4, 4]) + (int)Char.GetNumericValue(charar[4, 2]);
-                total[5] = (int)Char.GetNumericValue(charar[4, 0]) + (int)Char.GetNumericValue(charar[3, 1]) + (int)Char.GetNumericValue(charar[2, 2]) +
-                           (int)Char.GetNumericValue(charar[1, 3]) + (int)Char.GetNumericValue(charar[0, 4]);
-                total[6] = (int)Char.GetNumericValue(charar[0, 0]) + (int)Char.GetNumericValue(charar[0, 1]) + (int)Char.GetNumericValue(charar[2, 0]) +
-                           (int)Char.GetNumericValue(charar[0, 3]) + (int)Char.GetNumericValue(charar[4, 0]);
-                total[7] = (int)Char.GetNumericValue(charar[1, 0]) + (int)Char.GetNumericValue(charar[1, 1]) + (int)Char.GetNumericValue(charar[1, 2]) +
-                           (int)Char.GetNumericValue(charar[3, 1]) + (int)Char.GetNumericValue(charar[1, 4]);
-                total[8] = (int)Char.GetNumericValue(charar[0, 2]) + (int)Char.GetNumericValue(charar[2, 1]) + (int)Char.GetNumericValue(charar[2, 2]) +
-                           (int)Char.GetNumericValue(charar[2, 3]) + (int)Char.GetNumericValue(charar[4, 2]);
-                total[9] = (int)Char.GetNumericValue(charar[3, 0]) + (int)Char.GetNumericValue(charar[1, 3]) + (int)Char.GetNumericValue(charar[3, 2]) +
-                           (int)Char.GetNumericValue(charar[3, 3]) + (int)Char.GetNumericValue(charar[3, 4]);
-                total[10] = (int)Char.GetNumericValue(charar[0, 4]) + (int)Char.GetNumericValue(charar[4, 1]) + (int)Char.GetNumericValue(charar[2, 4]) +
-                            (int)Char.GetNumericValue(charar[4, 3]) + (int)Char.GetNumericValue(charar[4, 4]);
-                total[11] = (int)Char.GetNumericValue(charar[0, 0]) + (int)Char.GetNumericValue(charar[1, 1]) + (int)Char.GetNumericValue(charar[2, 2]) +
-                            (int)Char.GetNumericValue(charar[3, 3]) + (int)Char.GetNumericValue(charar[4, 4]);
-
+                for (int i = 0; i < 5; i++)
+                {
+                    total[0] += (int)Char.GetNumericValue(charar[i, 0]);
+                    total[1] += (int)Char.GetNumericValue(charar[i, 1]);
+                    total[2] += (int)Char.GetNumericValue(charar[i, 2]);
+                    total[3] += (int)Char.GetNumericValue(charar[i, 3]);
+                    total[4] += (int)Char.GetNumericValue(charar[i, 4]);
+                    total[11] += (int)Char.GetNumericValue(charar[i, i]);
+                    total[6] += (int)Char.GetNumericValue(charar[0, i]);
+                    total[7] += (int)Char.GetNumericValue(charar[1, i]);
+                    total[8] += (int)Char.GetNumericValue(charar[2, i]);
+                    total[9] += (int)Char.GetNumericValue(charar[3, i]);
+                    total[10] += (int)Char.GetNumericValue(charar[4, i]);
+                    total[5] += (int)Char.GetNumericValue(charar[4 - i, i]);
+                }
                 for (int i = 0; i < 12; i++)
                 {
                     MediumTotals[i].Text = total[i].ToString();
@@ -952,41 +1022,27 @@ namespace Assignment5
             if (currentdif == 3)
             {
                 int[] total = new int[16];
+                for (int i = 0; i < 7; i++)
+                {
+                    total[0] += (int)Char.GetNumericValue(charar[i, 0]);
+                    total[1] += (int)Char.GetNumericValue(charar[i, 1]);
+                    total[2] += (int)Char.GetNumericValue(charar[i, 2]);
+                    total[3] += (int)Char.GetNumericValue(charar[i, 3]);
+                    total[4] += (int)Char.GetNumericValue(charar[i, 4]);
+                    total[5] += (int)Char.GetNumericValue(charar[i, 5]);
+                    total[6] += (int)Char.GetNumericValue(charar[i, 6]);
 
-                // get the proper values to calculate totals (indexes werent working as expected so i hardcoded the values, will fix if time allows)
-                total[0] = (int)Char.GetNumericValue(charar[0, 0]) + (int)Char.GetNumericValue(charar[1, 0]) + (int)Char.GetNumericValue(charar[0, 2]) + (int)Char.GetNumericValue(charar[3, 0]) + 
-                           (int)Char.GetNumericValue(charar[0, 4]) + (int)Char.GetNumericValue(charar[5, 0]) + (int)Char.GetNumericValue(charar[0, 6]);
-                total[1] = (int)Char.GetNumericValue(charar[0, 1]) + (int)Char.GetNumericValue(charar[1, 1]) + (int)Char.GetNumericValue(charar[2, 1]) + (int)Char.GetNumericValue(charar[1, 3]) + 
-                           (int)Char.GetNumericValue(charar[4, 1]) + (int)Char.GetNumericValue(charar[1, 5]) + (int)Char.GetNumericValue(charar[6, 1]);
-                total[2] = (int)Char.GetNumericValue(charar[2, 0]) + (int)Char.GetNumericValue(charar[1, 2]) + (int)Char.GetNumericValue(charar[2, 2]) + (int)Char.GetNumericValue(charar[3, 2]) + 
-                           (int)Char.GetNumericValue(charar[2, 4]) + (int)Char.GetNumericValue(charar[5, 2]) + (int)Char.GetNumericValue(charar[2, 6]);
-                total[3] = (int)Char.GetNumericValue(charar[0, 3]) + (int)Char.GetNumericValue(charar[3, 1]) + (int)Char.GetNumericValue(charar[2, 3]) + (int)Char.GetNumericValue(charar[3, 3]) + 
-                           (int)Char.GetNumericValue(charar[4, 3]) + (int)Char.GetNumericValue(charar[3, 5]) + (int)Char.GetNumericValue(charar[6, 3]);
-                total[4] = (int)Char.GetNumericValue(charar[4, 0]) + (int)Char.GetNumericValue(charar[1, 4]) + (int)Char.GetNumericValue(charar[4, 2]) + (int)Char.GetNumericValue(charar[3, 4]) + 
-                           (int)Char.GetNumericValue(charar[4, 4]) + (int)Char.GetNumericValue(charar[5, 4]) + (int)Char.GetNumericValue(charar[4, 6]);
-                total[5] = (int)Char.GetNumericValue(charar[0, 5]) + (int)Char.GetNumericValue(charar[5, 1]) + (int)Char.GetNumericValue(charar[2, 5]) + (int)Char.GetNumericValue(charar[5, 3]) +
-                           (int)Char.GetNumericValue(charar[4, 5]) + (int)Char.GetNumericValue(charar[5, 5]) + (int)Char.GetNumericValue(charar[6, 5]);
-                total[6] = (int)Char.GetNumericValue(charar[6, 0]) + (int)Char.GetNumericValue(charar[1, 6]) + (int)Char.GetNumericValue(charar[6, 2]) + (int)Char.GetNumericValue(charar[3, 6]) +
-                           (int)Char.GetNumericValue(charar[6, 4]) + (int)Char.GetNumericValue(charar[5, 6]) + (int)Char.GetNumericValue(charar[6, 6]);
-                total[7] = (int)Char.GetNumericValue(charar[0, 6]) + (int)Char.GetNumericValue(charar[1, 5]) + (int)Char.GetNumericValue(charar[2, 4]) + (int)Char.GetNumericValue(charar[3, 3]) +
-                           (int)Char.GetNumericValue(charar[4, 2]) + (int)Char.GetNumericValue(charar[5, 1]) + (int)Char.GetNumericValue(charar[6, 0]);
-                total[8] = (int)Char.GetNumericValue(charar[0, 0]) + (int)Char.GetNumericValue(charar[0, 1]) + (int)Char.GetNumericValue(charar[2, 0]) + (int)Char.GetNumericValue(charar[0, 3]) +
-                           (int)Char.GetNumericValue(charar[4, 0]) + (int)Char.GetNumericValue(charar[0, 5]) + (int)Char.GetNumericValue(charar[6, 0]);
-                total[9] = (int)Char.GetNumericValue(charar[1, 0]) + (int)Char.GetNumericValue(charar[1, 1]) + (int)Char.GetNumericValue(charar[1, 2]) + (int)Char.GetNumericValue(charar[3, 1]) +
-                           (int)Char.GetNumericValue(charar[1, 4]) + (int)Char.GetNumericValue(charar[5, 1]) + (int)Char.GetNumericValue(charar[1, 6]);
-                total[10] = (int)Char.GetNumericValue(charar[0, 2]) + (int)Char.GetNumericValue(charar[2, 1]) + (int)Char.GetNumericValue(charar[2, 2]) + (int)Char.GetNumericValue(charar[2, 3]) +
-                            (int)Char.GetNumericValue(charar[4, 2]) + (int)Char.GetNumericValue(charar[2, 5]) + (int)Char.GetNumericValue(charar[6, 2]);
-                total[11] = (int)Char.GetNumericValue(charar[3, 0]) + (int)Char.GetNumericValue(charar[1, 3]) + (int)Char.GetNumericValue(charar[3, 2]) + (int)Char.GetNumericValue(charar[3, 3]) +
-                            (int)Char.GetNumericValue(charar[3, 4]) + (int)Char.GetNumericValue(charar[5, 3]) + (int)Char.GetNumericValue(charar[3, 6]);
-                total[12] = (int)Char.GetNumericValue(charar[0, 4]) + (int)Char.GetNumericValue(charar[4, 1]) + (int)Char.GetNumericValue(charar[2, 4]) + (int)Char.GetNumericValue(charar[4, 3]) +
-                            (int)Char.GetNumericValue(charar[4, 4]) + (int)Char.GetNumericValue(charar[4, 5]) + (int)Char.GetNumericValue(charar[6, 4]);
-                total[13] = (int)Char.GetNumericValue(charar[5, 0]) + (int)Char.GetNumericValue(charar[1, 5]) + (int)Char.GetNumericValue(charar[5, 2]) + (int)Char.GetNumericValue(charar[3, 5]) +
-                            (int)Char.GetNumericValue(charar[5, 4]) + (int)Char.GetNumericValue(charar[5, 5]) + (int)Char.GetNumericValue(charar[5, 6]);
-                total[14] = (int)Char.GetNumericValue(charar[0, 6]) + (int)Char.GetNumericValue(charar[6, 1]) + (int)Char.GetNumericValue(charar[2, 6]) + (int)Char.GetNumericValue(charar[6, 3]) +
-                            (int)Char.GetNumericValue(charar[4, 6]) + (int)Char.GetNumericValue(charar[6, 5]) + (int)Char.GetNumericValue(charar[6, 6]);
-                total[15] = (int)Char.GetNumericValue(charar[0, 0]) + (int)Char.GetNumericValue(charar[1, 1]) + (int)Char.GetNumericValue(charar[2, 2]) + (int)Char.GetNumericValue(charar[3, 3]) +
-                            (int)Char.GetNumericValue(charar[4, 4]) + (int)Char.GetNumericValue(charar[5, 5]) + (int)Char.GetNumericValue(charar[6, 6]);
+                    total[15] += (int)Char.GetNumericValue(charar[i, i]);
+                    total[8] += (int)Char.GetNumericValue(charar[0, i]);
+                    total[9] += (int)Char.GetNumericValue(charar[1, i]);
+                    total[10] += (int)Char.GetNumericValue(charar[2, i]);
+                    total[11] += (int)Char.GetNumericValue(charar[3, i]);
+                    total[12] += (int)Char.GetNumericValue(charar[4, i]);
+                    total[13] += (int)Char.GetNumericValue(charar[5, i]);
+                    total[14] += (int)Char.GetNumericValue(charar[6, i]);
 
+                    total[7] += (int)Char.GetNumericValue(charar[6 - i, i]);
+                }
                 for (int i = 0; i < 16; i++)
                 {
                     HardTotals[i].Text = total[i].ToString();
@@ -994,6 +1050,111 @@ namespace Assignment5
                 }
             }
         }
+        /* public void setCurrentTotals(char[,] charar)
+         {
+             if (currentdif == 1)
+             {
+                 int[] total = new int[8];
+
+                 // get the proper values to calculate totals (indexes werent working as expected so i hardcoded the values, will fix if time allows)
+                 total[0] = (int)Char.GetNumericValue(charar[0, 0]) + (int)Char.GetNumericValue(charar[1, 0]) + (int)Char.GetNumericValue(charar[0, 2]);
+                 total[1] = (int)Char.GetNumericValue(charar[0, 1]) + (int)Char.GetNumericValue(charar[1, 1]) + (int)Char.GetNumericValue(charar[2, 1]);
+                 total[2] = (int)Char.GetNumericValue(charar[2, 0]) + (int)Char.GetNumericValue(charar[1, 2]) + (int)Char.GetNumericValue(charar[2, 2]);
+                 total[3] = (int)Char.GetNumericValue(charar[2, 0]) + (int)Char.GetNumericValue(charar[1, 1]) + (int)Char.GetNumericValue(charar[0, 2]);
+                 total[4] = (int)Char.GetNumericValue(charar[0, 0]) + (int)Char.GetNumericValue(charar[0, 1]) + (int)Char.GetNumericValue(charar[2, 0]);
+                 total[5] = (int)Char.GetNumericValue(charar[1, 0]) + (int)Char.GetNumericValue(charar[1, 1]) + (int)Char.GetNumericValue(charar[1, 2]);
+                 total[6] = (int)Char.GetNumericValue(charar[0, 2]) + (int)Char.GetNumericValue(charar[2, 1]) + (int)Char.GetNumericValue(charar[2, 2]);
+                 total[7] = (int)Char.GetNumericValue(charar[0, 0]) + (int)Char.GetNumericValue(charar[1, 1]) + (int)Char.GetNumericValue(charar[2, 2]);
+
+                 for (int i = 0; i < 8; i++)
+                 {
+
+                     EasyTotals[i].Text = total[i].ToString();
+                     EasyTotals[i].SelectionAlignment = HorizontalAlignment.Center;
+                 }
+
+             }
+             if (currentdif == 2)
+             {
+                 int[] total = new int[12];
+
+                 // get the proper values to calculate totals (indexes werent working as expected so i hardcoded the values, will fix if time allows)
+                 total[0] = (int)Char.GetNumericValue(charar[0, 0]) + (int)Char.GetNumericValue(charar[1, 0]) + (int)Char.GetNumericValue(charar[0, 2]) + 
+                            (int)Char.GetNumericValue(charar[3, 0]) + (int)Char.GetNumericValue(charar[0, 4]);
+                 total[1] = (int)Char.GetNumericValue(charar[0, 1]) + (int)Char.GetNumericValue(charar[1, 1]) + (int)Char.GetNumericValue(charar[1, 2]) +
+                            (int)Char.GetNumericValue(charar[1, 3]) + (int)Char.GetNumericValue(charar[1, 4]);
+                 total[2] = (int)Char.GetNumericValue(charar[2, 0]) + (int)Char.GetNumericValue(charar[1, 2]) + (int)Char.GetNumericValue(charar[2, 2]) +
+                            (int)Char.GetNumericValue(charar[3, 2]) + (int)Char.GetNumericValue(charar[2, 4]);
+                 total[3] = (int)Char.GetNumericValue(charar[0, 3]) + (int)Char.GetNumericValue(charar[3, 1]) + (int)Char.GetNumericValue(charar[2, 3]) +
+                            (int)Char.GetNumericValue(charar[3, 3]) + (int)Char.GetNumericValue(charar[4, 3]);
+                 total[4] = (int)Char.GetNumericValue(charar[4, 0]) + (int)Char.GetNumericValue(charar[1, 4]) + (int)Char.GetNumericValue(charar[3, 4]) + 
+                            (int)Char.GetNumericValue(charar[4, 4]) + (int)Char.GetNumericValue(charar[4, 2]);
+                 total[5] = (int)Char.GetNumericValue(charar[4, 0]) + (int)Char.GetNumericValue(charar[3, 1]) + (int)Char.GetNumericValue(charar[2, 2]) +
+                            (int)Char.GetNumericValue(charar[1, 3]) + (int)Char.GetNumericValue(charar[0, 4]);
+                 total[6] = (int)Char.GetNumericValue(charar[0, 0]) + (int)Char.GetNumericValue(charar[0, 1]) + (int)Char.GetNumericValue(charar[2, 0]) +
+                            (int)Char.GetNumericValue(charar[0, 3]) + (int)Char.GetNumericValue(charar[4, 0]);
+                 total[7] = (int)Char.GetNumericValue(charar[1, 0]) + (int)Char.GetNumericValue(charar[1, 1]) + (int)Char.GetNumericValue(charar[1, 2]) +
+                            (int)Char.GetNumericValue(charar[3, 1]) + (int)Char.GetNumericValue(charar[1, 4]);
+                 total[8] = (int)Char.GetNumericValue(charar[0, 2]) + (int)Char.GetNumericValue(charar[2, 1]) + (int)Char.GetNumericValue(charar[2, 2]) +
+                            (int)Char.GetNumericValue(charar[2, 3]) + (int)Char.GetNumericValue(charar[4, 2]);
+                 total[9] = (int)Char.GetNumericValue(charar[3, 0]) + (int)Char.GetNumericValue(charar[1, 3]) + (int)Char.GetNumericValue(charar[3, 2]) +
+                            (int)Char.GetNumericValue(charar[3, 3]) + (int)Char.GetNumericValue(charar[3, 4]);
+                 total[10] = (int)Char.GetNumericValue(charar[0, 4]) + (int)Char.GetNumericValue(charar[4, 1]) + (int)Char.GetNumericValue(charar[2, 4]) +
+                             (int)Char.GetNumericValue(charar[4, 3]) + (int)Char.GetNumericValue(charar[4, 4]);
+                 total[11] = (int)Char.GetNumericValue(charar[0, 0]) + (int)Char.GetNumericValue(charar[1, 1]) + (int)Char.GetNumericValue(charar[2, 2]) +
+                             (int)Char.GetNumericValue(charar[3, 3]) + (int)Char.GetNumericValue(charar[4, 4]);
+
+                 for (int i = 0; i < 12; i++)
+                 {
+                     MediumTotals[i].Text = total[i].ToString();
+                     MediumTotals[i].SelectionAlignment = HorizontalAlignment.Center;
+                 }
+             }
+             if (currentdif == 3)
+             {
+                 int[] total = new int[16];
+
+                 // get the proper values to calculate totals (indexes werent working as expected so i hardcoded the values, will fix if time allows)
+                 total[0] = (int)Char.GetNumericValue(charar[0, 0]) + (int)Char.GetNumericValue(charar[1, 0]) + (int)Char.GetNumericValue(charar[0, 2]) + (int)Char.GetNumericValue(charar[3, 0]) + 
+                            (int)Char.GetNumericValue(charar[0, 4]) + (int)Char.GetNumericValue(charar[5, 0]) + (int)Char.GetNumericValue(charar[0, 6]);
+                 total[1] = (int)Char.GetNumericValue(charar[0, 1]) + (int)Char.GetNumericValue(charar[1, 1]) + (int)Char.GetNumericValue(charar[2, 1]) + (int)Char.GetNumericValue(charar[1, 3]) + 
+                            (int)Char.GetNumericValue(charar[4, 1]) + (int)Char.GetNumericValue(charar[1, 5]) + (int)Char.GetNumericValue(charar[6, 1]);
+                 total[2] = (int)Char.GetNumericValue(charar[2, 0]) + (int)Char.GetNumericValue(charar[1, 2]) + (int)Char.GetNumericValue(charar[2, 2]) + (int)Char.GetNumericValue(charar[3, 2]) + 
+                            (int)Char.GetNumericValue(charar[2, 4]) + (int)Char.GetNumericValue(charar[5, 2]) + (int)Char.GetNumericValue(charar[2, 6]);
+                 total[3] = (int)Char.GetNumericValue(charar[0, 3]) + (int)Char.GetNumericValue(charar[3, 1]) + (int)Char.GetNumericValue(charar[2, 3]) + (int)Char.GetNumericValue(charar[3, 3]) + 
+                            (int)Char.GetNumericValue(charar[4, 3]) + (int)Char.GetNumericValue(charar[3, 5]) + (int)Char.GetNumericValue(charar[6, 3]);
+                 total[4] = (int)Char.GetNumericValue(charar[4, 0]) + (int)Char.GetNumericValue(charar[1, 4]) + (int)Char.GetNumericValue(charar[4, 2]) + (int)Char.GetNumericValue(charar[3, 4]) + 
+                            (int)Char.GetNumericValue(charar[4, 4]) + (int)Char.GetNumericValue(charar[5, 4]) + (int)Char.GetNumericValue(charar[4, 6]);
+                 total[5] = (int)Char.GetNumericValue(charar[0, 5]) + (int)Char.GetNumericValue(charar[5, 1]) + (int)Char.GetNumericValue(charar[2, 5]) + (int)Char.GetNumericValue(charar[5, 3]) +
+                            (int)Char.GetNumericValue(charar[4, 5]) + (int)Char.GetNumericValue(charar[5, 5]) + (int)Char.GetNumericValue(charar[6, 5]);
+                 total[6] = (int)Char.GetNumericValue(charar[6, 0]) + (int)Char.GetNumericValue(charar[1, 6]) + (int)Char.GetNumericValue(charar[6, 2]) + (int)Char.GetNumericValue(charar[3, 6]) +
+                            (int)Char.GetNumericValue(charar[6, 4]) + (int)Char.GetNumericValue(charar[5, 6]) + (int)Char.GetNumericValue(charar[6, 6]);
+                 total[7] = (int)Char.GetNumericValue(charar[0, 6]) + (int)Char.GetNumericValue(charar[1, 5]) + (int)Char.GetNumericValue(charar[2, 4]) + (int)Char.GetNumericValue(charar[3, 3]) +
+                            (int)Char.GetNumericValue(charar[4, 2]) + (int)Char.GetNumericValue(charar[5, 1]) + (int)Char.GetNumericValue(charar[6, 0]);
+                 total[8] = (int)Char.GetNumericValue(charar[0, 0]) + (int)Char.GetNumericValue(charar[0, 1]) + (int)Char.GetNumericValue(charar[2, 0]) + (int)Char.GetNumericValue(charar[0, 3]) +
+                            (int)Char.GetNumericValue(charar[4, 0]) + (int)Char.GetNumericValue(charar[0, 5]) + (int)Char.GetNumericValue(charar[6, 0]);
+                 total[9] = (int)Char.GetNumericValue(charar[1, 0]) + (int)Char.GetNumericValue(charar[1, 1]) + (int)Char.GetNumericValue(charar[1, 2]) + (int)Char.GetNumericValue(charar[3, 1]) +
+                            (int)Char.GetNumericValue(charar[1, 4]) + (int)Char.GetNumericValue(charar[5, 1]) + (int)Char.GetNumericValue(charar[1, 6]);
+                 total[10] = (int)Char.GetNumericValue(charar[0, 2]) + (int)Char.GetNumericValue(charar[2, 1]) + (int)Char.GetNumericValue(charar[2, 2]) + (int)Char.GetNumericValue(charar[2, 3]) +
+                             (int)Char.GetNumericValue(charar[4, 2]) + (int)Char.GetNumericValue(charar[2, 5]) + (int)Char.GetNumericValue(charar[6, 2]);
+                 total[11] = (int)Char.GetNumericValue(charar[3, 0]) + (int)Char.GetNumericValue(charar[1, 3]) + (int)Char.GetNumericValue(charar[3, 2]) + (int)Char.GetNumericValue(charar[3, 3]) +
+                             (int)Char.GetNumericValue(charar[3, 4]) + (int)Char.GetNumericValue(charar[5, 3]) + (int)Char.GetNumericValue(charar[3, 6]);
+                 total[12] = (int)Char.GetNumericValue(charar[0, 4]) + (int)Char.GetNumericValue(charar[4, 1]) + (int)Char.GetNumericValue(charar[2, 4]) + (int)Char.GetNumericValue(charar[4, 3]) +
+                             (int)Char.GetNumericValue(charar[4, 4]) + (int)Char.GetNumericValue(charar[4, 5]) + (int)Char.GetNumericValue(charar[6, 4]);
+                 total[13] = (int)Char.GetNumericValue(charar[5, 0]) + (int)Char.GetNumericValue(charar[1, 5]) + (int)Char.GetNumericValue(charar[5, 2]) + (int)Char.GetNumericValue(charar[3, 5]) +
+                             (int)Char.GetNumericValue(charar[5, 4]) + (int)Char.GetNumericValue(charar[5, 5]) + (int)Char.GetNumericValue(charar[5, 6]);
+                 total[14] = (int)Char.GetNumericValue(charar[0, 6]) + (int)Char.GetNumericValue(charar[6, 1]) + (int)Char.GetNumericValue(charar[2, 6]) + (int)Char.GetNumericValue(charar[6, 3]) +
+                             (int)Char.GetNumericValue(charar[4, 6]) + (int)Char.GetNumericValue(charar[6, 5]) + (int)Char.GetNumericValue(charar[6, 6]);
+                 total[15] = (int)Char.GetNumericValue(charar[0, 0]) + (int)Char.GetNumericValue(charar[1, 1]) + (int)Char.GetNumericValue(charar[2, 2]) + (int)Char.GetNumericValue(charar[3, 3]) +
+                             (int)Char.GetNumericValue(charar[4, 4]) + (int)Char.GetNumericValue(charar[5, 5]) + (int)Char.GetNumericValue(charar[6, 6]);
+
+                 for (int i = 0; i < 16; i++)
+                 {
+                     HardTotals[i].Text = total[i].ToString();
+                     HardTotals[i].SelectionAlignment = HorizontalAlignment.Center;
+                 }
+             }
+         }*/
         public void colorInitVals(char[,] charar)
         {
             if (currentdif == 1)
