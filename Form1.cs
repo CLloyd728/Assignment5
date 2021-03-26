@@ -63,6 +63,11 @@ namespace Assignment5
         //this is just an int representing the current difficulty selected 1 for easy 3 for hard and -1 for not selected
         int currentdif = -1;
 
+        // current board selection, currently just cycles from 1 to 3
+        int curEasyBoard = 0;
+        int curMediumBoard = 0;
+        int curHardBoard = 0;
+
         public Form1()
         {
             InitializeComponent();
@@ -132,12 +137,18 @@ namespace Assignment5
                     else if (easycomplete[1])
                     {
                         if (!easyinitial2[x, i].Equals('0'))
+                        {
                             this.EasyBoxes[i, x].Text = easyinitial2[x, i].ToString();
+                            this.EasyBoxes[i, x].ReadOnly = true;
+                        }
                     }
                     else if (easycomplete[2])
                     {
                         if (!easyinitial3[x, i].Equals('0'))
+                        {
                             this.EasyBoxes[i, x].Text = easyinitial3[x, i].ToString();
+                            this.EasyBoxes[i, x].ReadOnly = true;
+                        }
                     }
                     panel1.Controls.Add(EasyBoxes[i, x]);
                 }
@@ -226,24 +237,22 @@ namespace Assignment5
             this.EasyTotals[7].ReadOnly = true;
             this.EasyTotals[7].SelectionAlignment = HorizontalAlignment.Center;
             this.Controls.Add(EasyTotals[7]);
+
             if (easycomplete[0])
             {
-                if (easycurrent == null)
-                    easycurrent = easyinitial1;
+                easycurrent = easyinitial1;
                 setCurrentTotals(easycurrent);
                 setAnsTotals(easyans1);
             }
             else if (easycomplete[1])
             {
-                if (easycurrent == null)
-                    easycurrent = easyinitial2;
+                easycurrent = easyinitial2;
                 setCurrentTotals(easycurrent);
                 setAnsTotals(easyans2);
             }
             else if (easycomplete[2])
             {
-                if (easycurrent == null)
-                    easycurrent = easyinitial3;
+                easycurrent = easyinitial3;
                 setCurrentTotals(easycurrent);
                 setAnsTotals(easyans3);
             }
@@ -258,7 +267,7 @@ namespace Assignment5
             EasyBoxes[1, 2].TextChanged += (sender2, e2) => easy_box_changed(sender2, e2, 1, 2);
             EasyBoxes[2, 0].TextChanged += (sender2, e2) => easy_box_changed(sender2, e2, 2, 0);
             EasyBoxes[2, 1].TextChanged += (sender2, e2) => easy_box_changed(sender2, e2, 2, 1);
-            EasyBoxes[2, 2].TextChanged += (sender2, e2) => easy_box_changed(sender2, e2, 2, 2);        
+            EasyBoxes[2, 2].TextChanged += (sender2, e2) => easy_box_changed(sender2, e2, 2, 2);     
         }
 
         protected void easy_box_changed(object sender, EventArgs e, int x, int y)
@@ -273,8 +282,14 @@ namespace Assignment5
 
             setCurrentTotals(easycurrent);
 
-            if(easyWin())
+            if (easyWin())
+            {
                 MessageBox.Show("YOU WIN!");
+                easycomplete[curEasyBoard] = false;
+                panel1.Controls.Clear();
+                clearTotals();
+                curEasyBoard++;
+            }
             
         }
         
@@ -418,22 +433,19 @@ namespace Assignment5
             this.Controls.Add(MediumTotals[11]);
             if (mediumcomplete[0])
             {
-                if (mediumcurrent == null)
-                    mediumcurrent = mediuminitial1;
+                mediumcurrent = mediuminitial1;
                 setCurrentTotals(mediumcurrent);
                 setAnsTotals(mediumans1);
             }
             else if (mediumcomplete[1])
             {
-                if (mediumcurrent == null)
-                    mediumcurrent = mediuminitial2;
+                mediumcurrent = mediuminitial2;
                 setCurrentTotals(mediumcurrent);
                 setAnsTotals(mediumans2);
             }
             else if (mediumcomplete[2])
-            {
-                if (mediumcurrent == null)
-                    mediumcurrent = mediuminitial3;
+            { 
+                mediumcurrent = mediuminitial3;
                 setCurrentTotals(mediumcurrent);
                 setAnsTotals(mediumans3);
             }
@@ -480,7 +492,13 @@ namespace Assignment5
             setCurrentTotals(mediumcurrent);
 
             if (mediumWin())
+            {
                 MessageBox.Show("YOU WIN!");
+                mediumcomplete[curMediumBoard] = false;
+                panel1.Controls.Clear();
+                clearTotals();
+                curMediumBoard++;
+            }
         }
 
         public bool mediumWin()
@@ -760,6 +778,7 @@ namespace Assignment5
                         easyans3[i, x] = e3lines[i + 4].ElementAt(x);
                     }
                 }
+
                 for (int i = 0; i < 5; i++)
                 {
                     for (int x = 0; x < 5; x++)
@@ -795,6 +814,7 @@ namespace Assignment5
             if (currentdif == 1)
             {
                 int[] total = new int[8];
+
                 for (int i = 0; i < 3; i++)
                 {
                     total[0] += (int)Char.GetNumericValue(charar[i, 0]);
@@ -806,6 +826,8 @@ namespace Assignment5
                     total[6] += (int)Char.GetNumericValue(charar[2, i]);
                     total[7] += (int)Char.GetNumericValue(charar[2 - i, i]);
                 }
+                
+
                 for (int i = 0; i < 8; i++)
                 {
                     EasyAnswers[i].Text = total[i].ToString();
@@ -930,11 +952,6 @@ namespace Assignment5
             if (currentdif == 3)
             {
                 int[] total = new int[16];
-                for (int i = 0; i < 7; i++)
-                {
-                    //total[0] += (int)Char.GetNumericValue(charar[i, 0]);
-
-                }
 
                 // get the proper values to calculate totals (indexes werent working as expected so i hardcoded the values, will fix if time allows)
                 total[0] = (int)Char.GetNumericValue(charar[0, 0]) + (int)Char.GetNumericValue(charar[1, 0]) + (int)Char.GetNumericValue(charar[0, 2]) + (int)Char.GetNumericValue(charar[3, 0]) + 
