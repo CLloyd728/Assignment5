@@ -507,12 +507,14 @@ namespace Assignment5
                     this.HardBoxes[i, x].Font = new System.Drawing.Font("Microsoft Sans Serif", 32F);
                     this.HardBoxes[i, x].Location = new System.Drawing.Point(i * (panel1.Width / 7), x * (panel1.Height / 7));
                     this.HardBoxes[i, x].Name = "EasyBox" + i + x;
+
                     this.HardBoxes[i, x].Size = new System.Drawing.Size(panel1.Width / 7, panel1.Height / 7);
                     if (hardcomplete[0])
                     {
                         if (!hardinitial1[x, i].Equals('0'))
                         {
-                            this.HardBoxes[i, x].Text = hardinitial1[x, i].ToString();
+                            HardBoxes[i, x].Text = hardinitial1[x, i].ToString();
+                            HardBoxes[i, x].ReadOnly = true;
                         }
                     }
                     else if (hardcomplete[1])
@@ -520,15 +522,18 @@ namespace Assignment5
                         if (!hardinitial2[x, i].Equals('0'))
                         {
                             this.HardBoxes[i, x].Text = hardinitial2[x, i].ToString();
+                            HardBoxes[i, x].ReadOnly = true;
                         }
                     }
                     else if (hardcomplete[2])
                     {
                         if (!hardinitial3[x, i].Equals('0'))
+                        {
                             this.HardBoxes[i, x].Text = hardinitial3[x, i].ToString();
+                            HardBoxes[i, x].ReadOnly = true;
+                        }
                     }
                     this.HardBoxes[i, x].SelectionAlignment = HorizontalAlignment.Center;
-                    this.HardBoxes[i, x].ReadOnly = true;
                     panel1.Controls.Add(HardBoxes[i, x]);
                 }
             }
@@ -638,7 +643,89 @@ namespace Assignment5
                 setAnsTotals(hardans3);
             }
             colorInitVals(hardcurrent);
+
+            // bind the event handlers for changing editable text boxes in easy puzzles
+            HardBoxes[0, 0].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 0, 0);
+            HardBoxes[0, 1].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 0, 1);
+            HardBoxes[0, 2].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 0, 2);
+            HardBoxes[0, 3].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 0, 3);
+            HardBoxes[0, 4].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 0, 4);
+            HardBoxes[0, 5].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 0, 5);
+            HardBoxes[0, 6].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 0, 6);
+            HardBoxes[1, 0].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 1, 0);
+            HardBoxes[1, 1].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 1, 1);
+            HardBoxes[1, 2].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 1, 2);
+            HardBoxes[1, 3].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 1, 3);
+            HardBoxes[1, 4].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 1, 4);
+            HardBoxes[1, 5].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 1, 5);
+            HardBoxes[1, 6].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 1, 6);
+            HardBoxes[2, 0].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 2, 0);
+            HardBoxes[2, 1].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 2, 1);
+            HardBoxes[2, 2].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 2, 2);
+            HardBoxes[2, 3].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 2, 3);
+            HardBoxes[2, 4].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 2, 4);
+            HardBoxes[2, 5].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 2, 5);
+            HardBoxes[2, 6].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 2, 6);
+            HardBoxes[3, 0].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 3, 0);
+            HardBoxes[3, 1].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 3, 1);
+            HardBoxes[3, 2].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 3, 2);
+            HardBoxes[3, 3].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 3, 3);
+            HardBoxes[3, 4].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 3, 4);
+            HardBoxes[3, 5].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 3, 5);
+            HardBoxes[3, 6].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 3, 6);
+            HardBoxes[4, 0].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 4, 0);
+            HardBoxes[4, 1].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 4, 1);
+            HardBoxes[4, 2].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 4, 2);
+            HardBoxes[4, 3].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 4, 3);
+            HardBoxes[4, 4].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 4, 4);
+            HardBoxes[4, 5].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 4, 5);
+            HardBoxes[4, 6].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 4, 6);
+            HardBoxes[5, 0].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 5, 0);
+            HardBoxes[5, 1].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 5, 1);
+            HardBoxes[5, 2].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 5, 2);
+            HardBoxes[5, 3].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 5, 3);
+            HardBoxes[5, 4].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 5, 4);
+            HardBoxes[5, 5].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 5, 5);
+            HardBoxes[5, 6].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 5, 6);
+            HardBoxes[6, 0].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 6, 0);
+            HardBoxes[6, 1].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 6, 1);
+            HardBoxes[6, 2].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 6, 2);
+            HardBoxes[6, 3].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 6, 3);
+            HardBoxes[6, 4].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 6, 4);
+            HardBoxes[6, 5].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 6, 5);
+            HardBoxes[6, 6].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 6, 6);
+
         }
+
+        protected void hard_box_changed(object s, EventArgs e, int x, int y)
+        {
+            if (!(HardBoxes[x, y].Text.Length == 1))
+            {
+                hardcurrent[x, y] = Convert.ToChar('0');
+                HardBoxes[x, y].Text = "";
+            }
+            else
+                hardcurrent[x, y] = Convert.ToChar(HardBoxes[x, y].Text);
+
+            setCurrentTotals(hardcurrent);
+
+            if (hardWin())
+                MessageBox.Show("YOU WIN!");
+        }
+
+        public bool hardWin()
+        {
+            for (int i = 0; i < 16; i++)
+                if (i != 7 && i != 15)
+                    if (HardTotals[i].Text != HardAnswers[i].Text)
+                        return false;
+
+            if (HardTotals[7].Text != HardAnswers[15].Text || HardTotals[15].Text != HardAnswers[7].Text)
+                return false;
+
+            return true;
+        }
+
         public void readin()
         {
             string[] e1lines;
@@ -808,6 +895,7 @@ namespace Assignment5
             {
                 int[] total = new int[12];
 
+                // get the proper values to calculate totals (indexes werent working as expected so i hardcoded the values, will fix if time allows)
                 total[0] = (int)Char.GetNumericValue(charar[0, 0]) + (int)Char.GetNumericValue(charar[1, 0]) + (int)Char.GetNumericValue(charar[0, 2]) + 
                            (int)Char.GetNumericValue(charar[3, 0]) + (int)Char.GetNumericValue(charar[0, 4]);
                 total[1] = (int)Char.GetNumericValue(charar[0, 1]) + (int)Char.GetNumericValue(charar[1, 1]) + (int)Char.GetNumericValue(charar[1, 2]) +
@@ -844,25 +932,44 @@ namespace Assignment5
                 int[] total = new int[16];
                 for (int i = 0; i < 7; i++)
                 {
-                    total[0] += (int)Char.GetNumericValue(charar[i, 0]);
-                    total[1] += (int)Char.GetNumericValue(charar[i, 1]);
-                    total[2] += (int)Char.GetNumericValue(charar[i, 2]);
-                    total[3] += (int)Char.GetNumericValue(charar[i, 3]);
-                    total[4] += (int)Char.GetNumericValue(charar[i, 4]);
-                    total[5] += (int)Char.GetNumericValue(charar[i, 5]);
-                    total[6] += (int)Char.GetNumericValue(charar[i, 6]);
+                    //total[0] += (int)Char.GetNumericValue(charar[i, 0]);
 
-                    total[7] += (int)Char.GetNumericValue(charar[i, i]);
-                    total[8] += (int)Char.GetNumericValue(charar[0, i]);
-                    total[9] += (int)Char.GetNumericValue(charar[1, i]);
-                    total[10] += (int)Char.GetNumericValue(charar[2, i]);
-                    total[11] += (int)Char.GetNumericValue(charar[3, i]);
-                    total[12] += (int)Char.GetNumericValue(charar[4, i]);
-                    total[13] += (int)Char.GetNumericValue(charar[5, i]);
-                    total[14] += (int)Char.GetNumericValue(charar[6, i]);
-
-                    total[15] += (int)Char.GetNumericValue(charar[6 - i, i]);
                 }
+
+                // get the proper values to calculate totals (indexes werent working as expected so i hardcoded the values, will fix if time allows)
+                total[0] = (int)Char.GetNumericValue(charar[0, 0]) + (int)Char.GetNumericValue(charar[1, 0]) + (int)Char.GetNumericValue(charar[0, 2]) + (int)Char.GetNumericValue(charar[3, 0]) + 
+                           (int)Char.GetNumericValue(charar[0, 4]) + (int)Char.GetNumericValue(charar[5, 0]) + (int)Char.GetNumericValue(charar[0, 6]);
+                total[1] = (int)Char.GetNumericValue(charar[0, 1]) + (int)Char.GetNumericValue(charar[1, 1]) + (int)Char.GetNumericValue(charar[2, 1]) + (int)Char.GetNumericValue(charar[1, 3]) + 
+                           (int)Char.GetNumericValue(charar[4, 1]) + (int)Char.GetNumericValue(charar[1, 5]) + (int)Char.GetNumericValue(charar[6, 1]);
+                total[2] = (int)Char.GetNumericValue(charar[2, 0]) + (int)Char.GetNumericValue(charar[1, 2]) + (int)Char.GetNumericValue(charar[2, 2]) + (int)Char.GetNumericValue(charar[3, 2]) + 
+                           (int)Char.GetNumericValue(charar[2, 4]) + (int)Char.GetNumericValue(charar[5, 2]) + (int)Char.GetNumericValue(charar[2, 6]);
+                total[3] = (int)Char.GetNumericValue(charar[0, 3]) + (int)Char.GetNumericValue(charar[3, 1]) + (int)Char.GetNumericValue(charar[2, 3]) + (int)Char.GetNumericValue(charar[3, 3]) + 
+                           (int)Char.GetNumericValue(charar[4, 3]) + (int)Char.GetNumericValue(charar[3, 5]) + (int)Char.GetNumericValue(charar[6, 3]);
+                total[4] = (int)Char.GetNumericValue(charar[4, 0]) + (int)Char.GetNumericValue(charar[1, 4]) + (int)Char.GetNumericValue(charar[4, 2]) + (int)Char.GetNumericValue(charar[3, 4]) + 
+                           (int)Char.GetNumericValue(charar[4, 4]) + (int)Char.GetNumericValue(charar[5, 4]) + (int)Char.GetNumericValue(charar[4, 6]);
+                total[5] = (int)Char.GetNumericValue(charar[0, 5]) + (int)Char.GetNumericValue(charar[5, 1]) + (int)Char.GetNumericValue(charar[2, 5]) + (int)Char.GetNumericValue(charar[5, 3]) +
+                           (int)Char.GetNumericValue(charar[4, 5]) + (int)Char.GetNumericValue(charar[5, 5]) + (int)Char.GetNumericValue(charar[6, 5]);
+                total[6] = (int)Char.GetNumericValue(charar[6, 0]) + (int)Char.GetNumericValue(charar[1, 6]) + (int)Char.GetNumericValue(charar[6, 2]) + (int)Char.GetNumericValue(charar[3, 6]) +
+                           (int)Char.GetNumericValue(charar[6, 4]) + (int)Char.GetNumericValue(charar[5, 6]) + (int)Char.GetNumericValue(charar[6, 6]);
+                total[7] = (int)Char.GetNumericValue(charar[0, 6]) + (int)Char.GetNumericValue(charar[1, 5]) + (int)Char.GetNumericValue(charar[2, 4]) + (int)Char.GetNumericValue(charar[3, 3]) +
+                           (int)Char.GetNumericValue(charar[4, 2]) + (int)Char.GetNumericValue(charar[5, 1]) + (int)Char.GetNumericValue(charar[6, 0]);
+                total[8] = (int)Char.GetNumericValue(charar[0, 0]) + (int)Char.GetNumericValue(charar[0, 1]) + (int)Char.GetNumericValue(charar[2, 0]) + (int)Char.GetNumericValue(charar[0, 3]) +
+                           (int)Char.GetNumericValue(charar[4, 0]) + (int)Char.GetNumericValue(charar[0, 5]) + (int)Char.GetNumericValue(charar[6, 0]);
+                total[9] = (int)Char.GetNumericValue(charar[1, 0]) + (int)Char.GetNumericValue(charar[1, 1]) + (int)Char.GetNumericValue(charar[1, 2]) + (int)Char.GetNumericValue(charar[3, 1]) +
+                           (int)Char.GetNumericValue(charar[1, 4]) + (int)Char.GetNumericValue(charar[5, 1]) + (int)Char.GetNumericValue(charar[1, 6]);
+                total[10] = (int)Char.GetNumericValue(charar[0, 2]) + (int)Char.GetNumericValue(charar[2, 1]) + (int)Char.GetNumericValue(charar[2, 2]) + (int)Char.GetNumericValue(charar[2, 3]) +
+                            (int)Char.GetNumericValue(charar[4, 2]) + (int)Char.GetNumericValue(charar[2, 5]) + (int)Char.GetNumericValue(charar[6, 2]);
+                total[11] = (int)Char.GetNumericValue(charar[3, 0]) + (int)Char.GetNumericValue(charar[1, 3]) + (int)Char.GetNumericValue(charar[3, 2]) + (int)Char.GetNumericValue(charar[3, 3]) +
+                            (int)Char.GetNumericValue(charar[3, 4]) + (int)Char.GetNumericValue(charar[5, 3]) + (int)Char.GetNumericValue(charar[3, 6]);
+                total[12] = (int)Char.GetNumericValue(charar[0, 4]) + (int)Char.GetNumericValue(charar[4, 1]) + (int)Char.GetNumericValue(charar[2, 4]) + (int)Char.GetNumericValue(charar[4, 3]) +
+                            (int)Char.GetNumericValue(charar[4, 4]) + (int)Char.GetNumericValue(charar[4, 5]) + (int)Char.GetNumericValue(charar[6, 4]);
+                total[13] = (int)Char.GetNumericValue(charar[5, 0]) + (int)Char.GetNumericValue(charar[1, 5]) + (int)Char.GetNumericValue(charar[5, 2]) + (int)Char.GetNumericValue(charar[3, 5]) +
+                            (int)Char.GetNumericValue(charar[5, 4]) + (int)Char.GetNumericValue(charar[5, 5]) + (int)Char.GetNumericValue(charar[5, 6]);
+                total[14] = (int)Char.GetNumericValue(charar[0, 6]) + (int)Char.GetNumericValue(charar[6, 1]) + (int)Char.GetNumericValue(charar[2, 6]) + (int)Char.GetNumericValue(charar[6, 3]) +
+                            (int)Char.GetNumericValue(charar[4, 6]) + (int)Char.GetNumericValue(charar[6, 5]) + (int)Char.GetNumericValue(charar[6, 6]);
+                total[15] = (int)Char.GetNumericValue(charar[0, 0]) + (int)Char.GetNumericValue(charar[1, 1]) + (int)Char.GetNumericValue(charar[2, 2]) + (int)Char.GetNumericValue(charar[3, 3]) +
+                            (int)Char.GetNumericValue(charar[4, 4]) + (int)Char.GetNumericValue(charar[5, 5]) + (int)Char.GetNumericValue(charar[6, 6]);
+
                 for (int i = 0; i < 16; i++)
                 {
                     HardTotals[i].Text = total[i].ToString();
