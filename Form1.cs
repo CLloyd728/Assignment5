@@ -72,6 +72,8 @@ namespace Assignment5
         int curMediumBoard = 0;
         int curHardBoard = 0;
 
+        bool paused = false;
+
         Stopwatch timer = new Stopwatch();
 
         public Form1()
@@ -1380,7 +1382,24 @@ namespace Assignment5
                         }
                     }
                 default:    return;
-            }                       
+            }
+                       
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (!paused)
+            {
+                timer.Stop();
+                panel1.Hide();
+                paused = true;
+            }
+            else
+            {
+                timer.Start();
+                panel1.Show();
+                paused = false;
+            }
         }
     }
 }
