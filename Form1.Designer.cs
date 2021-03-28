@@ -41,7 +41,7 @@ namespace Assignment5
             this.label4 = new System.Windows.Forms.Label();
             this.check_answer_button = new System.Windows.Forms.Button();
             this.reset_button = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.pause_button = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -149,15 +149,15 @@ namespace Assignment5
             this.reset_button.UseVisualStyleBackColor = true;
             this.reset_button.Click += new System.EventHandler(this.reset_button_Click);
             // 
-            // button1
+            // pause_button
             // 
-            this.button1.Location = new System.Drawing.Point(932, 811);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(91, 23);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "Pause/Resume";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.pause_button.Location = new System.Drawing.Point(932, 811);
+            this.pause_button.Name = "pause_button";
+            this.pause_button.Size = new System.Drawing.Size(91, 23);
+            this.pause_button.TabIndex = 8;
+            this.pause_button.Text = "Pause/Resume";
+            this.pause_button.UseVisualStyleBackColor = true;
+            this.pause_button.Click += new System.EventHandler(this.pause_button_Click);
             // 
             // Form1
             // 
@@ -166,7 +166,7 @@ namespace Assignment5
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.Cyan;
             this.ClientSize = new System.Drawing.Size(1131, 846);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.pause_button);
             this.Controls.Add(this.reset_button);
             this.Controls.Add(this.check_answer_button);
             this.Controls.Add(this.label4);
@@ -199,6 +199,7 @@ namespace Assignment5
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button check_answer_button;
         private System.Windows.Forms.Button reset_button;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button pause_button;
     }
 }
+
