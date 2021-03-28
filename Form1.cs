@@ -9,8 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Runtime.InteropServices;
-
-
+using System.Diagnostics;
 
 namespace Assignment5
 {
@@ -73,6 +72,8 @@ namespace Assignment5
         int curMediumBoard = 0;
         int curHardBoard = 0;
 
+        Stopwatch timer = new Stopwatch();
+
         public Form1()
         {
             InitializeComponent();
@@ -119,6 +120,7 @@ namespace Assignment5
         }
         private void easyToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            timer.Start();
             //easycomplete[0] = false;
             //easycomplete[1] = false;
             currentdif = 1;
@@ -318,6 +320,8 @@ namespace Assignment5
 
         public void easyWin()
         {
+            readin();
+            timer.Stop();
             bool winner = true;
             for (int i = 0; i < 8; i++)
                 if (i != 3 && i != 7)
@@ -329,7 +333,8 @@ namespace Assignment5
 
             if (winner)
             {
-                MessageBox.Show("Answer correct, you win!", "Winner");
+                MessageBox.Show("Answer correct, you win!\nTime: " + timer.ElapsedMilliseconds/1000 + " seconds", "Winner");
+                timer.Reset();
                 easycomplete[curEasyBoard] = false;
                 panel1.Controls.Clear();
                 clearTotals();
@@ -349,7 +354,8 @@ namespace Assignment5
         }
 
         private void mediumToolStripMenuItem_Click(object sender, EventArgs e)
-        {            
+        {
+            timer.Start();
             currentdif = 2;
             panel1.Controls.Clear();
             for (int i = 0; i < 5; i++)
@@ -574,6 +580,7 @@ namespace Assignment5
 
         public void mediumWin()
         {
+            readin();
             bool winner = true;
             for (int i = 0; i < 12; i++)
                 if (i != 5 && i != 11)
@@ -585,7 +592,8 @@ namespace Assignment5
 
             if (winner)
             {
-                MessageBox.Show("Answer correct, you win!", "Winner");
+                MessageBox.Show("Answer correct, you win!\nTime: " + timer.ElapsedMilliseconds / 1000 + " seconds", "Winner");
+                timer.Reset();
                 mediumcomplete[curMediumBoard] = false;
                 panel1.Controls.Clear();
                 clearTotals();
@@ -605,6 +613,7 @@ namespace Assignment5
         }
         private void hardToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            timer.Start();
             //hardcomplete[0] = false;
             //hardcomplete[1] = false;
             currentdif = 3;
@@ -893,7 +902,8 @@ namespace Assignment5
 
             if (winner)
             {
-                MessageBox.Show("Answer correct, you win!", "Winner");
+                MessageBox.Show("Answer correct, you win!\nTime: " + timer.ElapsedMilliseconds / 1000 + " seconds", "Winner");
+                timer.Reset();
                 hardcomplete[curHardBoard] = false;
                 panel1.Controls.Clear();
                 clearTotals();
@@ -1207,8 +1217,9 @@ namespace Assignment5
 
         public void reset_button_Click(object sender, EventArgs e)
         {
+            // re-read the initial values
             readin();
-
+            timer.Restart();
             switch (currentdif)
             {
                 //reset easy board
@@ -1221,6 +1232,7 @@ namespace Assignment5
                                     for (int i = 0; i < 3; i++)
                                     {
                                         for (int x = 0; x < 3; x++)
+                                     
                                         {
                                             if (EasyBoxes[i, x].Text != easyinitial1[x, i].ToString())
                                             {
@@ -1368,8 +1380,9 @@ namespace Assignment5
                                 }
                             default: return;
                         }
-                    }           
-            }
+                    }
+                default:    return;
+            }                       
         }
     }
 }
