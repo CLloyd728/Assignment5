@@ -1,4 +1,4 @@
-﻿
+
 namespace Assignment5
 {
     partial class Form1
@@ -39,6 +39,9 @@ namespace Assignment5
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.check_answer_button = new System.Windows.Forms.Button();
+            this.reset_button = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -126,12 +129,46 @@ namespace Assignment5
             this.label4.TabIndex = 4;
             this.label4.Text = "Running Total";
             // 
+            // check_answer_button
+            // 
+            this.check_answer_button.Location = new System.Drawing.Point(975, 782);
+            this.check_answer_button.Name = "check_answer_button";
+            this.check_answer_button.Size = new System.Drawing.Size(114, 23);
+            this.check_answer_button.TabIndex = 6;
+            this.check_answer_button.Text = "Check Answer";
+            this.check_answer_button.UseVisualStyleBackColor = true;
+            this.check_answer_button.Click += new System.EventHandler(this.check_answer_button_Click);
+            // 
+            // reset_button
+            // 
+            this.reset_button.Location = new System.Drawing.Point(1029, 811);
+            this.reset_button.Name = "reset_button";
+            this.reset_button.Size = new System.Drawing.Size(90, 23);
+            this.reset_button.TabIndex = 7;
+            this.reset_button.Text = "Reset";
+            this.reset_button.UseVisualStyleBackColor = true;
+            this.reset_button.Click += new System.EventHandler(this.reset_button_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(932, 811);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(91, 23);
+            this.button1.TabIndex = 8;
+            this.button1.Text = "Pause/Resume";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.BackColor = System.Drawing.Color.Cyan;
             this.ClientSize = new System.Drawing.Size(1131, 846);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.reset_button);
+            this.Controls.Add(this.check_answer_button);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -160,6 +197,8 @@ namespace Assignment5
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button check_answer_button;
+        private System.Windows.Forms.Button reset_button;
+        private System.Windows.Forms.Button button1;
     }
 }
-
