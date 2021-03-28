@@ -16,10 +16,8 @@ namespace Assignment5
 {
     public partial class Form1 : Form
     {
-        //used to hide cursor on focus
         [DllImport("user32.dll")]
-        static extern bool HideCaret(IntPtr hWnd);
-        
+        static extern bool HideCaret(IntPtr hwnd);
         //all of the text boxes for the sudoku puzzle
         RichTextBox[,] EasyBoxes = new RichTextBox[3, 3];
         RichTextBox[] EasyAnswers = new RichTextBox[8];
@@ -143,6 +141,7 @@ namespace Assignment5
                             this.EasyBoxes[i, x].ReadOnly = true;
                         }
                     }
+                    
                     else if (easycomplete[1])
                     {
                         if (!easyinitial2[x, i].Equals('0'))
@@ -159,6 +158,7 @@ namespace Assignment5
                             this.EasyBoxes[i, x].ReadOnly = true;
                         }
                     }
+
                     panel1.Controls.Add(EasyBoxes[i, x]);
                 }
             }
@@ -311,36 +311,41 @@ namespace Assignment5
             // Set the color based on correctness
             for (int i = 0; i < 8; i++)
                 if (i != 3 && i != 7)
-                    if (EasyTotals[i].Text == EasyAnswers[i].Text)
-                        EasyTotals[i].BackColor = Color.Green;
-            if (EasyTotals[3].Text == EasyAnswers[7].Text)
-                EasyTotals[3].BackColor = Color.Green;
-            if (EasyTotals[7].Text == EasyAnswers[3].Text)
-                EasyTotals[7].BackColor = Color.Green;
-               
-    
-            if (easyWin())
-            {
-                MessageBox.Show("YOU WIN!");
-                easycomplete[curEasyBoard] = false;
-                panel1.Controls.Clear();
-                clearTotals();
-                curEasyBoard++;
-            }
-
+                    EasyTotals[i].BackColor = (EasyTotals[i].Text == EasyAnswers[i].Text ? Color.Green : Color.Red);
+            EasyTotals[3].BackColor = (EasyTotals[3].Text == EasyAnswers[7].Text ? Color.Green : Color.Red);
+            EasyTotals[7].BackColor = (EasyTotals[7].Text == EasyAnswers[3].Text ? Color.Green : Color.Red);
         }
 
-        public bool easyWin()
+        public void easyWin()
         {
+            bool winner = true;
             for (int i = 0; i < 8; i++)
                 if (i != 3 && i != 7)
                     if (EasyTotals[i].Text != EasyAnswers[i].Text)
-                        return false;
+                        winner = false;
 
             if (EasyTotals[3].Text != EasyAnswers[7].Text || EasyTotals[7].Text != EasyAnswers[3].Text)
-                return false;
+                winner = false;
 
-            return true;
+            if (winner)
+            {
+                MessageBox.Show("Answer correct, you win!", "Winner");
+                easycomplete[curEasyBoard] = false;
+                panel1.Controls.Clear();
+                clearTotals();
+                if (curEasyBoard == 2)
+                {
+                    curEasyBoard = 0;
+                    for (int i = 0; i < 2; i++)
+                        easycomplete[i] = true;
+                }
+                else
+                    curEasyBoard++;
+            }
+            else
+            {
+                MessageBox.Show("Answer incorrect, try again.", "Not Quite");
+            }          
         }
 
         private void mediumToolStripMenuItem_Click(object sender, EventArgs e)
@@ -562,34 +567,41 @@ namespace Assignment5
             // Set the color based on correctness
             for (int i = 0; i < 12; i++)
                 if (i != 5 && i != 11)
-                    if (MediumTotals[i].Text == MediumAnswers[i].Text)
-                        MediumTotals[i].BackColor = Color.Green;
-            if (MediumTotals[5].Text == MediumAnswers[11].Text)
-                MediumTotals[5].BackColor = Color.Green;
-            if (MediumTotals[11].Text == MediumAnswers[5].Text)
-                MediumTotals[11].BackColor = Color.Green;
-
-            if (mediumWin())
-            {
-                MessageBox.Show("YOU WIN!");
-                mediumcomplete[curMediumBoard] = false;
-                panel1.Controls.Clear();
-                clearTotals();
-                curMediumBoard++;
-            }
+                    MediumTotals[i].BackColor = (MediumTotals[i].Text == MediumAnswers[i].Text ? Color.Green : Color.Red);
+            MediumTotals[5].BackColor = (MediumTotals[5].Text == MediumAnswers[11].Text ? Color.Green : Color.Red);
+            MediumTotals[11].BackColor = (MediumTotals[11].Text == MediumAnswers[5].Text ? Color.Green : Color.Red);
         }
 
-        public bool mediumWin()
+        public void mediumWin()
         {
+            bool winner = true;
             for (int i = 0; i < 12; i++)
                 if (i != 5 && i != 11)
                     if (MediumTotals[i].Text != MediumAnswers[i].Text)
-                        return false;
+                        winner =  false;
 
             if (MediumTotals[5].Text != MediumAnswers[11].Text || MediumTotals[11].Text != MediumAnswers[5].Text)
-                return false;
+                winner = false;
 
-            return true;
+            if (winner)
+            {
+                MessageBox.Show("Answer correct, you win!", "Winner");
+                mediumcomplete[curMediumBoard] = false;
+                panel1.Controls.Clear();
+                clearTotals();
+                if (curMediumBoard == 2)
+                {
+                    curMediumBoard = 0;
+                    for (int i = 0; i < 2; i++)
+                        mediumcomplete[i] = true;
+                }
+                else
+                    curMediumBoard++;
+            }
+            else
+            {
+                MessageBox.Show("Answer incorrect, try again.", "Not Quite");
+            }
         }
         private void hardToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -725,25 +737,23 @@ namespace Assignment5
             this.Controls.Add(HardTotals[15]);
             if (hardcomplete[0])
             {
-                if (hardcurrent == null)
-                    hardcurrent = hardinitial1;
+                hardcurrent = hardinitial1;
                 setCurrentTotals(hardcurrent);
                 setAnsTotals(hardans1);
             }
             else if (hardcomplete[1])
             {
-                if (hardcurrent == null)
-                    hardcurrent = hardinitial2;
+                hardcurrent = hardinitial2;
                 setCurrentTotals(hardcurrent);
                 setAnsTotals(hardans2);
             }
             else if (hardcomplete[2])
             {
-                if (hardcurrent == null)
-                    hardcurrent = hardinitial3;
+                hardcurrent = hardinitial3;
                 setCurrentTotals(hardcurrent);
                 setAnsTotals(hardans3);
             }
+            else
             colorInitVals(hardcurrent);
 
             // bind the event handlers for changing editable text boxes in easy puzzles
@@ -858,33 +868,48 @@ namespace Assignment5
             else
                 hardcurrent[y, x] = Convert.ToChar(HardBoxes[x, y].Text);
 
+            HideCaret(HardBoxes[x, y].Handle);
+
             setCurrentTotals(hardcurrent);
 
             // Set the color based on correctness
             for (int i = 0; i < 16; i++)
                 if (i != 7 && i != 15)
-                    if (HardTotals[i].Text == HardAnswers[i].Text)
-                        HardTotals[i].BackColor = Color.Green;
-            if (HardTotals[7].Text == HardAnswers[15].Text)
-                HardTotals[7].BackColor = Color.Green;
-            if (HardTotals[15].Text == HardAnswers[7].Text)
-                HardTotals[15].BackColor = Color.Green;
-
-            if (hardWin())
-                MessageBox.Show("YOU WIN!");
+                    HardTotals[i].BackColor = (HardTotals[i].Text == HardAnswers[i].Text ? Color.Green : Color.Red);
+            HardTotals[7].BackColor = (HardTotals[7].Text == HardAnswers[15].Text ? Color.Green : Color.Red);
+            HardTotals[15].BackColor = (HardTotals[15].Text == HardAnswers[7].Text ? Color.Green : Color.Red);
         }
 
-        public bool hardWin()
+        public void hardWin()
         {
+            bool winner = true;
             for (int i = 0; i < 16; i++)
                 if (i != 7 && i != 15)
                     if (HardTotals[i].Text != HardAnswers[i].Text)
-                        return false;
+                        winner = false;
 
             if (HardTotals[7].Text != HardAnswers[15].Text || HardTotals[15].Text != HardAnswers[7].Text)
-                return false;
+                winner = false;
 
-            return true;
+            if (winner)
+            {
+                MessageBox.Show("Answer correct, you win!", "Winner");
+                hardcomplete[curHardBoard] = false;
+                panel1.Controls.Clear();
+                clearTotals();
+                if (curHardBoard == 2)
+                {
+                    curHardBoard = 0;
+                    for (int i = 0; i < 2; i++)
+                        hardcomplete[i] = true;
+                }
+                else
+                    curHardBoard++;
+            }
+            else
+            {
+                MessageBox.Show("Answer incorrect, try again.", "Not Quite");
+            }
         }
 
         public void readin()
@@ -1166,6 +1191,184 @@ namespace Assignment5
                 case 2:     HideCaret(MediumBoxes[x, y].Handle);    return;
                 case 3:     HideCaret(HardBoxes[x, y].Handle);      return;
                 default:    return;
+            }
+        }
+
+        private void check_answer_button_Click(object sender, EventArgs e)
+        {
+            switch (currentdif)
+            {
+                case 1:     easyWin();    return;
+                case 2:     mediumWin();  return;
+                case 3:     hardWin();    return;
+                default:    return;
+            }    
+        }
+
+        public void reset_button_Click(object sender, EventArgs e)
+        {
+            readin();
+
+            switch (currentdif)
+            {
+                //reset easy board
+                case 1:
+                    {
+                        switch (curEasyBoard)
+                        {
+                            case 0:
+                                {
+                                    for (int i = 0; i < 3; i++)
+                                    {
+                                        for (int x = 0; x < 3; x++)
+                                        {
+                                            if (EasyBoxes[i, x].Text != easyinitial1[x, i].ToString())
+                                            {
+                                                EasyBoxes[i, x].Text = "";
+                                                easycurrent[i, x] = '0';
+                                            }
+                                        }
+                                    }
+                                    return;
+                                }
+                            case 1:
+                                {
+                                    for (int i = 0; i < 3; i++)
+                                    {
+                                        for (int x = 0; x < 3; x++)
+                                        {
+                                            if (EasyBoxes[i, x].Text != easyinitial2[x, i].ToString())
+                                            {
+                                                EasyBoxes[i, x].Text = "";
+                                                easycurrent[i, x] = '0';
+                                            }
+                                        }
+                                    }
+                                    return;
+                                }
+                            case 2:
+                                {
+                                    for (int i = 0; i < 3; i++)
+                                    {
+                                        for (int x = 0; x < 3; x++)
+                                        {
+                                            if (EasyBoxes[i, x].Text != easyinitial3[x, i].ToString())
+                                            {
+                                                EasyBoxes[i, x].Text = "";
+                                                easycurrent[i, x] = '0';
+                                            }
+                                        }
+                                    }
+                                    return;
+                                }
+                            default: return;
+                        }
+
+                    }
+                case 2:
+                    {
+                        switch (curMediumBoard)
+                        {
+                            case 0:
+                                {
+                                    for (int i = 0; i < 5; i++)
+                                    {
+                                        for (int x = 0; x < 5; x++)
+                                        {
+                                            if (MediumBoxes[i, x].Text != mediuminitial1[x, i].ToString())
+                                            {
+                                                MediumBoxes[i, x].Text = "";
+                                                mediumcurrent[i, x] = '0';
+                                            }
+                                        }
+                                    }
+                                    return;
+                                }
+                            case 1:
+                                {
+                                    for (int i = 0; i < 5; i++)
+                                    {
+                                        for (int x = 0; x < 5; x++)
+                                        {
+                                            if (MediumBoxes[i, x].Text != mediuminitial2[x, i].ToString())
+                                            {
+                                                MediumBoxes[i, x].Text = "";
+                                                mediumcurrent[i, x] = '0';
+                                            }
+                                        }
+                                    }
+                                    return;
+                                }
+                            case 2:
+                                {
+                                    for (int i = 0; i < 5; i++)
+                                    {
+                                        for (int x = 0; x < 5; x++)
+                                        {
+                                            if (MediumBoxes[i, x].Text != mediuminitial3[x, i].ToString())
+                                            {
+                                                MediumBoxes[i, x].Text = "";
+                                                mediumcurrent[i, x] = '0';
+                                            }
+                                        }
+                                    }
+                                    return;
+                                }
+                            default: return;
+                        }
+                    }
+                case 3:
+                    {
+                        switch (curHardBoard)
+                        {
+                            case 0:
+                                {
+                                    for (int i = 0; i < 7; i++)
+                                    {
+                                        for (int x = 0; x < 7; x++)
+                                        {
+                                            if (HardBoxes[i, x].Text != hardinitial1[x, i].ToString())
+                                            {
+                                                HardBoxes[i, x].Text = "";
+                                                hardcurrent[i, x] = '0';
+                                            }
+                                        }
+                                    }
+                                    return;
+                                }
+                            case 1:
+                                {
+                                    for (int i = 0; i < 7; i++)
+                                    {
+                                        for (int x = 0; x < 7; x++)
+                                        {
+                                            if (HardBoxes[i, x].Text != hardinitial2[x, i].ToString())
+                                            {
+                                                HardBoxes[i, x].Text = "";
+                                                hardcurrent[i, x] = '0';
+                                            }
+                                        }
+                                    }
+                                    return;
+                                }
+                            case 2:
+                                {
+                                    for (int i = 0; i < 7; i++)
+                                    {
+                                        for (int x = 0; x < 7; x++)
+                                        {
+                                            if (HardBoxes[i, x].Text != hardinitial3[x, i].ToString())
+                                            {
+                                                HardBoxes[i, x].Text = "";
+                                                hardcurrent[i, x] = '0';
+                                            }
+                                        }
+                                    }
+                                    return;
+                                }
+                            default: return;
+                        }
+                    }           
             }
         }
     }
