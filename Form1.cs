@@ -88,6 +88,7 @@ namespace Assignment5
         int easyRecord = 0;
         int medRecord = 0;
         int hardRecord = 0;
+        bool initialRead = true;
 
         Stopwatch timer = new Stopwatch();
 
@@ -378,7 +379,10 @@ namespace Assignment5
                         easycomplete[i] = true;
                 }
                 else
+                {
                     curEasyBoard++;
+                    currentdif = -1;
+                }
             }
             else
             {
@@ -655,7 +659,10 @@ namespace Assignment5
                         mediumcomplete[i] = true;
                 }
                 else
+                {
                     curMediumBoard++;
+                    currentdif = -1;
+                }
             }
             else
             {
@@ -984,7 +991,10 @@ namespace Assignment5
                         hardcomplete[i] = true;
                 }
                 else
+                {
                     curHardBoard++;
+                    currentdif = -1;
+                }
             }
             else
             {
@@ -1030,38 +1040,41 @@ namespace Assignment5
                 int hScoreVal = 0;
                 int hScoreCount = 0;
 
-                // read easy scores
-                StreamReader file = new StreamReader(easyScoresPath);
-                while ((line = file.ReadLine()) != null)
+                if (initialRead)
                 {
-                    eScoreVal += Convert.ToInt32(line);
-                    eScoreCount++;
-                }
-                if (eScoreCount > 0)
-                  avgEasy = eScoreVal / eScoreCount;
-                file.Close();
+                    // read easy scores
+                    StreamReader file = new StreamReader(easyScoresPath);
+                    while ((line = file.ReadLine()) != null)
+                    {
+                        eScoreVal += Convert.ToInt32(line);
+                        eScoreCount++;
+                    }
+                    if (eScoreCount > 0)
+                        avgEasy = eScoreVal / eScoreCount;
+                    file.Close();
 
-                // read medium scores
-                file = new StreamReader(medScorePath);
-                while ((line = file.ReadLine()) != null)
-                {
-                    mScoreVal += Convert.ToInt32(line);
-                    mScoreCount++;
-                }
-                if (mScoreCount > 0)
-                    avgMed = mScoreVal / mScoreCount;
-                file.Close();
+                    // read medium scores
+                    file = new StreamReader(medScorePath);
+                    while ((line = file.ReadLine()) != null)
+                    {
+                        mScoreVal += Convert.ToInt32(line);
+                        mScoreCount++;
+                    }
+                    if (mScoreCount > 0)
+                        avgMed = mScoreVal / mScoreCount;
+                    file.Close();
 
-                // read hard scores
-                file = new StreamReader(hardScorePath);
-                while ((line = file.ReadLine()) != null)
-                {
-                    hScoreVal += Convert.ToInt32(line);
-                    hScoreCount++;
+                    // read hard scores
+                    file = new StreamReader(hardScorePath);
+                    while ((line = file.ReadLine()) != null)
+                    {
+                        hScoreVal += Convert.ToInt32(line);
+                        hScoreCount++;
+                    }
+                    if (hScoreCount > 0)
+                        avgHard = eScoreVal / eScoreCount;
+                    file.Close();
                 }
-                if (hScoreCount > 0)
-                    avgHard = eScoreVal / eScoreCount;
-                file.Close();
 
                 for (int i = 0; i < 3; i++)
                 {
@@ -1105,6 +1118,8 @@ namespace Assignment5
             {
                 MessageBox.Show(e.ToString());
             }
+
+            initialRead = false;
         }
 
         public void setAnsTotals(char[,] charar)
@@ -1336,6 +1351,8 @@ namespace Assignment5
 
         public void reset_button_Click(object sender, EventArgs e)
         {
+            if (currentdif == -1)
+                return;
             // re-read the initial values
             readin();
             timer.Restart();
@@ -1501,11 +1518,14 @@ namespace Assignment5
                         }
                     }
                 default:    return;
-            }               
+            }
+                       
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void pause_button_Click(object sender, EventArgs e)
         {
+            if (currentdif == -1)
+                return;
             if (!paused)
             {
                 timer.Stop();
