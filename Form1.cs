@@ -334,7 +334,7 @@ namespace Assignment5
 
             if (winner)
             {
-                MessageBox.Show("Answer correct, you win!\nTime: " + timer.ElapsedMilliseconds/1000 + " seconds", "Winner");
+                MessageBox.Show("Answer correct, you win!\nCompleted in " + timer.Elapsed.Minutes + " minutes and " + timer.Elapsed.Seconds + " seconds.", "Winner");
                 timer.Reset();
                 easycomplete[curEasyBoard] = false;
                 panel1.Controls.Clear();
@@ -592,7 +592,7 @@ namespace Assignment5
 
             if (winner)
             {
-                MessageBox.Show("Answer correct, you win!\nTime: " + timer.ElapsedMilliseconds / 1000 + " seconds", "Winner");
+                MessageBox.Show("Answer correct, you win!\nCompleted in " + timer.Elapsed.Minutes + " minutes and " + timer.Elapsed.Seconds + " seconds.", "Winner");
                 timer.Reset();
                 mediumcomplete[curMediumBoard] = false;
                 panel1.Controls.Clear();
@@ -902,7 +902,7 @@ namespace Assignment5
 
             if (winner)
             {
-                MessageBox.Show("Answer correct, you win!\nTime: " + timer.ElapsedMilliseconds / 1000 + " seconds", "Winner");
+                MessageBox.Show("Answer correct, you win!\nCompleted in " + timer.Elapsed.Minutes + " minutes and " + timer.Elapsed.Seconds + " seconds.", "Winner");
                 timer.Reset();
                 hardcomplete[curHardBoard] = false;
                 panel1.Controls.Clear();
