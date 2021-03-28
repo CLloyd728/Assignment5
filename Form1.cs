@@ -37,6 +37,7 @@ namespace Assignment5
         String h1path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\hard\\h1.txt";
         String h2path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\hard\\h2.txt";
         String h3path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\hard\\h3.txt";
+        string highScorePath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\highscores.txt";
         //these are all the initial matricies for the puzzles as well as some bool variables that state whether or not they have been completed
         char[,] easyinitial1 = new char[3, 3];
         char[,] easyinitial2 = new char[3, 3];
@@ -73,6 +74,10 @@ namespace Assignment5
         int curHardBoard = 0;
 
         bool paused = false;
+
+        int easyRecord = 0;
+        int medRecord = 0;
+        int hardRecord = 0;
 
         Stopwatch timer = new Stopwatch();
 
@@ -334,7 +339,17 @@ namespace Assignment5
 
             if (winner)
             {
-                MessageBox.Show("Answer correct, you win!\nCompleted in " + timer.Elapsed.Minutes + " minutes and " + timer.Elapsed.Seconds + " seconds.", "Winner");
+                MessageBox.Show("Answer correct, you win!\nCompleted in " + timer.Elapsed.Minutes + " minutes and " + timer.Elapsed.Seconds + " seconds.\n" +
+                                "Current best time is " + (easyRecord/1000)/60 + " minutes and " + (easyRecord/1000)%60 + " seconds." + 
+                                (timer.ElapsedMilliseconds < easyRecord ? "\n\nYou set a new record!" : ""), "Winner");
+
+                if (timer.ElapsedMilliseconds < easyRecord)
+                {
+                    easyRecord = (int)timer.ElapsedMilliseconds;
+                    string[] lines = { easyRecord.ToString(), medRecord.ToString(), hardRecord.ToString() };
+                    File.WriteAllLines(highScorePath, lines);            
+                }
+
                 timer.Reset();
                 easycomplete[curEasyBoard] = false;
                 panel1.Controls.Clear();
@@ -592,7 +607,17 @@ namespace Assignment5
 
             if (winner)
             {
-                MessageBox.Show("Answer correct, you win!\nCompleted in " + timer.Elapsed.Minutes + " minutes and " + timer.Elapsed.Seconds + " seconds.", "Winner");
+                MessageBox.Show("Answer correct, you win!\nCompleted in " + timer.Elapsed.Minutes + " minutes and " + timer.Elapsed.Seconds + " seconds.\n" +
+                                "Current best time is " + (medRecord / 1000) / 60 + " minutes and " + (medRecord / 1000) % 60 + " seconds." +
+                                (timer.ElapsedMilliseconds < medRecord ? "\n\nYou set a new record!" : ""), "Winner");
+
+                if (timer.ElapsedMilliseconds < medRecord)
+                {
+                    medRecord = (int)timer.ElapsedMilliseconds;
+                    string[] lines = { easyRecord.ToString(), medRecord.ToString(), hardRecord.ToString() };
+                    File.WriteAllLines(highScorePath, lines);
+                }
+
                 timer.Reset();
                 mediumcomplete[curMediumBoard] = false;
                 panel1.Controls.Clear();
@@ -902,7 +927,17 @@ namespace Assignment5
 
             if (winner)
             {
-                MessageBox.Show("Answer correct, you win!\nCompleted in " + timer.Elapsed.Minutes + " minutes and " + timer.Elapsed.Seconds + " seconds.", "Winner");
+                MessageBox.Show("Answer correct, you win!\nCompleted in " + timer.Elapsed.Minutes + " minutes and " + timer.Elapsed.Seconds + " seconds.\n" +
+                                "Current best time is " + (hardRecord / 1000) / 60 + " minutes and " + (hardRecord / 1000) % 60 + " seconds." +
+                                (timer.ElapsedMilliseconds < hardRecord ? "\n\nYou set a new record!" : ""), "Winner");
+
+                if (timer.ElapsedMilliseconds < hardRecord)
+                {
+                    hardRecord = (int)timer.ElapsedMilliseconds;
+                    string[] lines = { easyRecord.ToString(), medRecord.ToString(), hardRecord.ToString() };
+                    File.WriteAllLines(highScorePath, lines);
+                }
+
                 timer.Reset();
                 hardcomplete[curHardBoard] = false;
                 panel1.Controls.Clear();
@@ -924,6 +959,7 @@ namespace Assignment5
 
         public void readin()
         {
+            string[] records;
             string[] e1lines;
             string[] e2lines;
             string[] e3lines;
@@ -935,6 +971,7 @@ namespace Assignment5
             string[] h3lines;
             try
             {
+                records = File.ReadAllLines(highScorePath);
                 e1lines = System.IO.File.ReadAllLines(e1path);
                 e2lines = System.IO.File.ReadAllLines(e2path);
                 e3lines = System.IO.File.ReadAllLines(e3path);
@@ -944,6 +981,11 @@ namespace Assignment5
                 h1lines = System.IO.File.ReadAllLines(h1path);
                 h2lines = System.IO.File.ReadAllLines(h2path);
                 h3lines = System.IO.File.ReadAllLines(h3path);
+
+                easyRecord = Convert.ToInt32(records[0]);
+                medRecord = Convert.ToInt32(records[1]);
+                hardRecord = Convert.ToInt32(records[2]);
+
                 for (int i = 0; i < 3; i++)
                 {
                     for (int x = 0; x < 3; x++)
