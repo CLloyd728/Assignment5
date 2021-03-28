@@ -27,7 +27,8 @@ namespace Assignment5
         RichTextBox[,] HardBoxes = new RichTextBox[7, 7];
         RichTextBox[] HardAnswers = new RichTextBox[16];
         RichTextBox[] HardTotals = new RichTextBox[16];
-        //all the file paths for the puzzles
+
+        //all the file paths for the puzzles and scoreboards
         String e1path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\easy\\e1.txt";
         String e2path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\easy\\e2.txt";
         String e3path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\easy\\e3.txt";
@@ -37,7 +38,16 @@ namespace Assignment5
         String h1path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\hard\\h1.txt";
         String h2path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\hard\\h2.txt";
         String h3path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\hard\\h3.txt";
-        string highScorePath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\highscores.txt";
+        String highScorePath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\highscores.txt";
+        String easyScoresPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\easy\\scores.txt";
+        String medScorePath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\medium\\scores.txt";
+        String hardScorePath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\hard\\scores.txt";
+
+        // average solve time in milliseconds of each difficulty 
+        int avgEasy = 0,
+            avgMed = 0,
+            avgHard = 0;
+
         //these are all the initial matricies for the puzzles as well as some bool variables that state whether or not they have been completed
         char[,] easyinitial1 = new char[3, 3];
         char[,] easyinitial2 = new char[3, 3];
@@ -340,14 +350,21 @@ namespace Assignment5
             if (winner)
             {
                 MessageBox.Show("Answer correct, you win!\nCompleted in " + timer.Elapsed.Minutes + " minutes and " + timer.Elapsed.Seconds + " seconds.\n" +
-                                "Current best time is " + (easyRecord/1000)/60 + " minutes and " + (easyRecord/1000)%60 + " seconds." + 
-                                (timer.ElapsedMilliseconds < easyRecord ? "\n\nYou set a new record!" : ""), "Winner");
+                                "Current best time is " + (easyRecord/1000)/60 + " minutes and " + (easyRecord/1000)%60 + " seconds." + "\nAverage time: " + (avgEasy/1000)/60 + 
+                                " minutes and " + (avgEasy/1000)%60 + " seconds." + (timer.ElapsedMilliseconds < easyRecord ? "\n\nYou set a new record!" : ""), "Winner");
 
+                //if high score, update high score file
                 if (timer.ElapsedMilliseconds < easyRecord)
                 {
                     easyRecord = (int)timer.ElapsedMilliseconds;
                     string[] lines = { easyRecord.ToString(), medRecord.ToString(), hardRecord.ToString() };
                     File.WriteAllLines(highScorePath, lines);            
+                }
+
+                //write score to score file
+                using (StreamWriter sw = File.AppendText(easyScoresPath))
+                {
+                    sw.WriteLine(timer.ElapsedMilliseconds.ToString());
                 }
 
                 timer.Reset();
@@ -596,6 +613,7 @@ namespace Assignment5
 
         public void mediumWin()
         {
+            timer.Stop();
             bool winner = true;
             for (int i = 0; i < 12; i++)
                 if (i != 5 && i != 11)
@@ -607,15 +625,23 @@ namespace Assignment5
 
             if (winner)
             {
+                //win message
                 MessageBox.Show("Answer correct, you win!\nCompleted in " + timer.Elapsed.Minutes + " minutes and " + timer.Elapsed.Seconds + " seconds.\n" +
-                                "Current best time is " + (medRecord / 1000) / 60 + " minutes and " + (medRecord / 1000) % 60 + " seconds." +
-                                (timer.ElapsedMilliseconds < medRecord ? "\n\nYou set a new record!" : ""), "Winner");
+                                "Current best time is " + (medRecord / 1000) / 60 + " minutes and " + (medRecord / 1000) % 60 + " seconds." + "\nAverage time: " + (avgMed / 1000) / 60 +
+                                " minutes and " + (avgMed / 1000) % 60 + " seconds." + (timer.ElapsedMilliseconds < medRecord ? "\n\nYou set a new record!" : ""), "Winner");
 
+                //if high score, update high score file
                 if (timer.ElapsedMilliseconds < medRecord)
                 {
                     medRecord = (int)timer.ElapsedMilliseconds;
                     string[] lines = { easyRecord.ToString(), medRecord.ToString(), hardRecord.ToString() };
                     File.WriteAllLines(highScorePath, lines);
+                }
+
+                //write score to score file
+                using (StreamWriter sw = File.AppendText(medScorePath))
+                {
+                    sw.WriteLine(timer.ElapsedMilliseconds.ToString());
                 }
 
                 timer.Reset();
@@ -916,6 +942,7 @@ namespace Assignment5
 
         public void hardWin()
         {
+            timer.Stop();
             bool winner = true;
             for (int i = 0; i < 16; i++)
                 if (i != 7 && i != 15)
@@ -927,15 +954,23 @@ namespace Assignment5
 
             if (winner)
             {
+                //win message
                 MessageBox.Show("Answer correct, you win!\nCompleted in " + timer.Elapsed.Minutes + " minutes and " + timer.Elapsed.Seconds + " seconds.\n" +
-                                "Current best time is " + (hardRecord / 1000) / 60 + " minutes and " + (hardRecord / 1000) % 60 + " seconds." +
-                                (timer.ElapsedMilliseconds < hardRecord ? "\n\nYou set a new record!" : ""), "Winner");
+                                "Current best time is " + (hardRecord / 1000) / 60 + " minutes and " + (hardRecord / 1000) % 60 + " seconds." + "\nAverage time: " + (avgHard / 1000) / 60 +
+                                " minutes and " + (avgHard / 1000) % 60 + " seconds." + (timer.ElapsedMilliseconds < hardRecord ? "\n\nYou set a new record!" : ""), "Winner");
 
+                //if high score, update high score file
                 if (timer.ElapsedMilliseconds < hardRecord)
                 {
                     hardRecord = (int)timer.ElapsedMilliseconds;
                     string[] lines = { easyRecord.ToString(), medRecord.ToString(), hardRecord.ToString() };
                     File.WriteAllLines(highScorePath, lines);
+                }
+
+                //write score to score file
+                using (StreamWriter sw = File.AppendText(hardScorePath))
+                {
+                    sw.WriteLine(timer.ElapsedMilliseconds.ToString());
                 }
 
                 timer.Reset();
@@ -969,6 +1004,7 @@ namespace Assignment5
             string[] h1lines;
             string[] h2lines;
             string[] h3lines;
+
             try
             {
                 records = File.ReadAllLines(highScorePath);
@@ -985,6 +1021,47 @@ namespace Assignment5
                 easyRecord = Convert.ToInt32(records[0]);
                 medRecord = Convert.ToInt32(records[1]);
                 hardRecord = Convert.ToInt32(records[2]);
+       
+                string line;
+                int eScoreVal = 0;
+                int eScoreCount = 0;
+                int mScoreVal = 0;
+                int mScoreCount = 0;
+                int hScoreVal = 0;
+                int hScoreCount = 0;
+
+                // read easy scores
+                StreamReader file = new StreamReader(easyScoresPath);
+                while ((line = file.ReadLine()) != null)
+                {
+                    eScoreVal += Convert.ToInt32(line);
+                    eScoreCount++;
+                }
+                if (eScoreCount > 0)
+                  avgEasy = eScoreVal / eScoreCount;
+                file.Close();
+
+                // read medium scores
+                file = new StreamReader(medScorePath);
+                while ((line = file.ReadLine()) != null)
+                {
+                    mScoreVal += Convert.ToInt32(line);
+                    mScoreCount++;
+                }
+                if (mScoreCount > 0)
+                    avgMed = mScoreVal / mScoreCount;
+                file.Close();
+
+                // read hard scores
+                file = new StreamReader(hardScorePath);
+                while ((line = file.ReadLine()) != null)
+                {
+                    hScoreVal += Convert.ToInt32(line);
+                    hScoreCount++;
+                }
+                if (hScoreCount > 0)
+                    avgHard = eScoreVal / eScoreCount;
+                file.Close();
 
                 for (int i = 0; i < 3; i++)
                 {
@@ -1424,8 +1501,7 @@ namespace Assignment5
                         }
                     }
                 default:    return;
-            }
-                       
+            }               
         }
 
         private void button1_Click(object sender, EventArgs e)
