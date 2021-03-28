@@ -320,7 +320,6 @@ namespace Assignment5
 
         public void easyWin()
         {
-            readin();
             timer.Stop();
             bool winner = true;
             for (int i = 0; i < 8; i++)
@@ -580,7 +579,6 @@ namespace Assignment5
 
         public void mediumWin()
         {
-            readin();
             bool winner = true;
             for (int i = 0; i < 12; i++)
                 if (i != 5 && i != 11)
