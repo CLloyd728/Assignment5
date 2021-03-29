@@ -1767,12 +1767,14 @@ namespace Assignment5
                 timer.Stop();
                 panel1.Hide();
                 paused = true;
+                pause_button.Text = "Resume";
             }
             else
             {
                 timer.Start();
                 panel1.Show();
                 paused = false;
+                pause_button.Text = "Pause";
             }
         }
     }
