@@ -42,6 +42,7 @@ namespace Assignment5
             this.check_answer_button = new System.Windows.Forms.Button();
             this.reset_button = new System.Windows.Forms.Button();
             this.pause_button = new System.Windows.Forms.Button();
+            this.cheat_button = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -131,7 +132,7 @@ namespace Assignment5
             // 
             // check_answer_button
             // 
-            this.check_answer_button.Location = new System.Drawing.Point(975, 782);
+            this.check_answer_button.Location = new System.Drawing.Point(901, 782);
             this.check_answer_button.Name = "check_answer_button";
             this.check_answer_button.Size = new System.Drawing.Size(114, 23);
             this.check_answer_button.TabIndex = 6;
@@ -151,13 +152,23 @@ namespace Assignment5
             // 
             // pause_button
             // 
-            this.pause_button.Location = new System.Drawing.Point(932, 811);
+            this.pause_button.Location = new System.Drawing.Point(901, 811);
             this.pause_button.Name = "pause_button";
-            this.pause_button.Size = new System.Drawing.Size(91, 23);
+            this.pause_button.Size = new System.Drawing.Size(114, 23);
             this.pause_button.TabIndex = 8;
             this.pause_button.Text = "Pause/Resume";
             this.pause_button.UseVisualStyleBackColor = true;
             this.pause_button.Click += new System.EventHandler(this.pause_button_Click);
+            // 
+            // cheat_button
+            // 
+            this.cheat_button.Location = new System.Drawing.Point(1029, 782);
+            this.cheat_button.Name = "cheat_button";
+            this.cheat_button.Size = new System.Drawing.Size(90, 23);
+            this.cheat_button.TabIndex = 9;
+            this.cheat_button.Text = "Cheat";
+            this.cheat_button.UseVisualStyleBackColor = true;
+            this.cheat_button.Click += new System.EventHandler(this.cheat_button_Click);
             // 
             // Form1
             // 
@@ -166,6 +177,7 @@ namespace Assignment5
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.Cyan;
             this.ClientSize = new System.Drawing.Size(1131, 846);
+            this.Controls.Add(this.cheat_button);
             this.Controls.Add(this.pause_button);
             this.Controls.Add(this.reset_button);
             this.Controls.Add(this.check_answer_button);
@@ -200,6 +212,7 @@ namespace Assignment5
         private System.Windows.Forms.Button check_answer_button;
         private System.Windows.Forms.Button reset_button;
         private System.Windows.Forms.Button pause_button;
+        private System.Windows.Forms.Button cheat_button;
     }
 }
 
