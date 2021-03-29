@@ -1364,223 +1364,98 @@ namespace Assignment5
             if (currentdif == -1)
                 return;
 
+            char[,] easyans = new char[3, 3];
+            char[,] medans = new char[5, 5];
+            char[,] hardans = new char[7, 7];
+
             bool found = false;
             switch (currentdif)
             {
                 // Easy
                 case 1:
                     {
-                        switch (curEasyBoard)
-                        {
-                            // Easy 1
-                            case 0:
-                                {
-                                    for (int i = 0; i < 3; i++)
-                                    {
-                                        for (int x = 0; x < 3; x++)
-                                        {
-                                            if (EasyBoxes[i, x].Text == "" || EasyBoxes[i, x].Text != easyans1[x, i].ToString())
-                                            {
-                                                EasyBoxes[i, x].Text = easyans1[x, i].ToString();
-                                                easycurrent[x, i] = easyans1[x, i];
-                                                found = true;
-                                            }
-                                            if (found)
-                                                break;
-                                        }
-                                        if (found)
-                                            break;
-                                    }
-                                    return;
-                                }
-                            // Easy 2
-                            case 1:
-                                {
-                                    for (int i = 0; i < 3; i++)
-                                    {
-                                        for (int x = 0; x < 3; x++)
-                                        {
-                                            if (EasyBoxes[i, x].Text == "" || EasyBoxes[i, x].Text != easyans2[x, i].ToString())
-                                            {
-                                                EasyBoxes[i, x].Text = easyans2[x, i].ToString();
-                                                easycurrent[x, i] = easyans2[x, i];
-                                                found = true;
-                                            }
-                                            if (found)
-                                                break;
-                                        }
-                                        if (found)
-                                            break;
-                                    }
-                                    return;
-                                }
-                            // Easy 3
-                            case 2:
-                                {
-                                    for (int i = 0; i < 3; i++)
-                                    {
-                                        for (int x = 0; x < 3; x++)
-                                        {
-                                            if (EasyBoxes[i, x].Text == "" || EasyBoxes[i, x].Text != easyans3[x, i].ToString())
-                                            {
-                                                EasyBoxes[i, x].Text = easyans3[x, i].ToString();
-                                                easycurrent[x, i] = easyans3[x, i];
-                                                found = true;
-                                            }
-                                            if (found)
-                                                break;
-                                        }
-                                        if (found)
-                                            break;
-                                    }
-                                    return;
-                                }
-                            default: return;
+                        if (curEasyBoard == 0)
+                            easyans = easyans1;
+                        else if (curEasyBoard == 1)
+                            easyans = easyans2;
+                        else
+                            easyans = easyans3;
 
+                        for (int i = 0; i < 3; i++)
+                        {
+                            for (int x = 0; x < 3; x++)
+                            {
+                                if (EasyBoxes[i, x].Text == "" || EasyBoxes[i, x].Text != easyans[x, i].ToString())
+                                {
+                                    EasyBoxes[i, x].Text = easyans[x, i].ToString();
+                                    easycurrent[x, i] = easyans[x, i];
+                                    found = true;
+                                }
+                                if (found)
+                                    break;
+                            }
+                            if (found)
+                                break;
                         }
+                        return;                                                    
                     }
                 // Medium
                 case 2:
                     {
-                        switch (curMediumBoard)
+                        if (curMediumBoard == 0)
+                            medans = mediumans1;
+                        else if (curMediumBoard == 1)
+                            medans = easyans2;
+                        else
+                            medans = mediumans3;
+
+                        for (int i = 0; i < 5; i++)
                         {
-                            // Medium 1
-                            case 0:
+                            for (int x = 0; x < 5; x++)
+                            {
+                                if (MediumBoxes[i, x].Text == "" || MediumBoxes[i, x].Text != medans[x, i].ToString())
                                 {
-                                    for (int i = 0; i < 5; i++)
-                                    {
-                                        for (int x = 0; x < 5; x++)
-                                        {
-                                            if (MediumBoxes[i, x].Text == "" || MediumBoxes[i, x].Text != mediumans1[x, i].ToString())
-                                            {
-                                                MediumBoxes[i, x].Text = mediumans1[x, i].ToString();
-                                                mediumcurrent[x, i] = mediumans1[x, i];
-                                                found = true;
-                                            }
-                                            if (found)
-                                                break;
-                                        }
-                                        if (found)
-                                            break;
-                                    }
-                                    return;
+                                    MediumBoxes[i, x].Text = medans[x, i].ToString();
+                                    mediumcurrent[x, i] = medans[x, i];
+                                    found = true;
                                 }
-                            // Medium 2
-                            case 1:
-                                {
-                                    for (int i = 0; i < 5; i++)
-                                    {
-                                        for (int x = 0; x < 5; x++)
-                                        {
-                                            if (MediumBoxes[i, x].Text == "" || MediumBoxes[i, x].Text != mediumans2[x, i].ToString())
-                                            {
-                                                MediumBoxes[i, x].Text = mediumans2[x, i].ToString();
-                                                mediumcurrent[x, i] = mediumans2[x, i];
-                                                found = true;
-                                            }
-                                            if (found)
-                                                break;
-                                        }
-                                        if (found)
-                                            break;
-                                    }
-                                    return;
-                                }
-                            // Medium 3
-                            case 2:
-                                {
-                                    for (int i = 0; i < 5; i++)
-                                    {
-                                        for (int x = 0; x < 5; x++)
-                                        {
-                                            if (MediumBoxes[i, x].Text == "" || MediumBoxes[i, x].Text != mediumans1[x, i].ToString())
-                                            {
-                                                MediumBoxes[i, x].Text = mediumans3[x, i].ToString();
-                                                mediumcurrent[x, i] = mediumans3[x, i];
-                                                found = true;
-                                            }
-                                            if (found)
-                                                break;
-                                        }
-                                        if (found)
-                                            break;
-                                    }
-                                    return;
-                                }
-                            default: return; ;
+                                if (found)
+                                    break;
+                            }
+                            if (found)
+                                break;
                         }
+                        return;
                     }
+                    
                 // Hard
                 case 3:
                     {
-                        switch (curHardBoard)
+                        if (curHardBoard == 0)
+                            hardans = hardans1;
+                        else if (curHardBoard == 1)
+                            hardans = hardans2;
+                        else
+                            hardans = hardans3;
+
+                        for (int i = 0; i < 7; i++)
                         {
-                            // Hard 1
-                            case 0:
+                            for (int x = 0; x < 7; x++)
+                            {
+                                if (HardBoxes[i, x].Text == "" || HardBoxes[i, x].Text != hardans[x, i].ToString())
                                 {
-                                    for (int i = 0; i < 7; i++)
-                                    {
-                                        for (int x = 0; x < 7; x++)
-                                        {
-                                            if (HardBoxes[i, x].Text == "" || HardBoxes[i, x].Text != hardans1[x, i].ToString())
-                                            {
-                                                HardBoxes[i, x].Text = hardans1[x, i].ToString();
-                                                hardcurrent[x, i] = hardans1[x, i];
-                                                found = true;
-                                            }
-                                            if (found)
-                                                break;
-                                        }
-                                        if (found)
-                                            break;
-                                    }
-                                    return;
+                                    HardBoxes[i, x].Text = hardans[x, i].ToString();
+                                    hardcurrent[x, i] = hardans[x, i];
+                                    found = true;
                                 }
-                            // Hard 2
-                            case 1:
-                                {
-                                    for (int i = 0; i < 7; i++)
-                                    {
-                                        for (int x = 0; x < 7; x++)
-                                        {
-                                            if (HardBoxes[i, x].Text == "" || HardBoxes[i, x].Text != hardans2[x, i].ToString())
-                                            {
-                                                HardBoxes[i, x].Text = hardans2[x, i].ToString();
-                                                hardcurrent[x, i] = hardans2[x, i];
-                                                found = true;
-                                            }
-                                            if (found)
-                                                break;
-                                        }
-                                        if (found)
-                                            break;
-                                    }
-                                    return;
-                                }
-                            // Hard 3
-                            case 2:
-                                {
-                                    for (int i = 0; i < 7; i++)
-                                    {
-                                        for (int x = 0; x < 7; x++)
-                                        {
-                                            if (HardBoxes[i, x].Text == "" || HardBoxes[i, x].Text != hardans1[x, i].ToString())
-                                            {
-                                                HardBoxes[i, x].Text = hardans3[x, i].ToString();
-                                                hardcurrent[x, i] = hardans3[x, i];
-                                                found = true;
-                                            }
-                                            if (found)
-                                                break;
-                                        }
-                                        if (found)
-                                            break;
-                                    }
-                                    return;
-                                }
-                            default: return;
+                                if (found)
+                                    break;
+                            }
+                            if (found)
+                                break;
                         }
-                    }
+                        return;
+                    }                                        
                 default: return; 
             }
         }
@@ -1754,7 +1629,8 @@ namespace Assignment5
                         }
                     }
                 default:    return;
-            }                       
+            }
+                       
         }
 
         private void pause_button_Click(object sender, EventArgs e)
