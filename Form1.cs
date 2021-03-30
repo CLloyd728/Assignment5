@@ -595,21 +595,24 @@ namespace Assignment5
             this.Controls.Add(MediumTotals[11]);
             if (mediumcomplete[0])
             {
-                mediumcurrent = (char[,])mediuminitial1.Clone();
+                if(mediumcurrent == null)
+                    mediumcurrent = (char[,])mediuminitial1.Clone();
                 setCurrentTotals(mediumcurrent);
                 setAnsTotals(mediumans1);
                 colorInitVals(mediuminitial1);
             }
             else if (mediumcomplete[1])
             {
-                mediumcurrent = (char[,])mediuminitial2.Clone();
+                if (mediumcurrent == null)
+                    mediumcurrent = (char[,])mediuminitial2.Clone();
                 setCurrentTotals(mediumcurrent);
                 setAnsTotals(mediumans2);
                 colorInitVals(mediuminitial2);
             }
             else if (mediumcomplete[2])
             {
-                mediumcurrent = (char[,])mediuminitial3.Clone();
+                if (mediumcurrent == null)
+                    mediumcurrent = (char[,])mediuminitial3.Clone();
                 setCurrentTotals(mediumcurrent);
                 setAnsTotals(mediumans3);
                 colorInitVals(mediuminitial3);
