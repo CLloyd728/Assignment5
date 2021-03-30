@@ -168,7 +168,7 @@ namespace Assignment5
                     {
                         if (!easyinitial1[x, i].Equals('0') || (easycurrent != null && !easycurrent[x, i].Equals('0')))
                         {
-                            if(easycurrent != null)
+                            if (easycurrent != null)
                             {
                                 this.EasyBoxes[i, x].Text = easycurrent[x, i].ToString();
                             }
@@ -179,12 +179,12 @@ namespace Assignment5
                             this.EasyBoxes[i, x].ReadOnly = true;
                         }
                     }
-                    
+
                     else if (easycomplete[1])
                     {
                         if (!easyinitial2[x, i].Equals('0') || (easycurrent != null && !easycurrent[x, i].Equals('0')))
                         {
-                            if(easycurrent != null)
+                            if (easycurrent != null)
                             {
                                 this.EasyBoxes[i, x].Text = easycurrent[x, i].ToString();
                             }
@@ -199,9 +199,9 @@ namespace Assignment5
                     {
                         if (!easyinitial3[x, i].Equals('0') || (easycurrent != null && !easycurrent[x, i].Equals('0')))
                         {
-                            if(easycurrent != null)
+                            if (easycurrent != null)
                             {
-                                    this.EasyBoxes[i, x].Text = easycurrent[x, i].ToString();
+                                this.EasyBoxes[i, x].Text = easycurrent[x, i].ToString();
                             }
                             else
                             {
@@ -248,7 +248,7 @@ namespace Assignment5
             this.EasyAnswers[3].Text = 3.ToString();
             this.EasyAnswers[3].ReadOnly = true;
             this.EasyAnswers[3].SelectionAlignment = HorizontalAlignment.Center;
-            this.EasyAnswers[3].BackColor = Color.Gray;     
+            this.EasyAnswers[3].BackColor = Color.Gray;
             this.Controls.Add(EasyAnswers[3]);
             EasyTotals[3] = new System.Windows.Forms.RichTextBox();
             this.EasyTotals[3].Font = new System.Drawing.Font("Microsoft Sans Serif", 44F);
@@ -291,7 +291,7 @@ namespace Assignment5
             this.EasyAnswers[7].Text = 7.ToString();
             this.EasyAnswers[7].ReadOnly = true;
             this.EasyAnswers[7].SelectionAlignment = HorizontalAlignment.Center;
-            this.EasyAnswers[7].BackColor = Color.Gray;            
+            this.EasyAnswers[7].BackColor = Color.Gray;
             this.Controls.Add(EasyAnswers[7]);
             EasyTotals[7] = new System.Windows.Forms.RichTextBox();
             this.EasyTotals[7].Font = new System.Drawing.Font("Microsoft Sans Serif", 44F);
@@ -306,7 +306,7 @@ namespace Assignment5
 
             if (easycomplete[0])
             {
-                if(easycurrent == null)
+                if (easycurrent == null)
                     easycurrent = (char[,])easyinitial1.Clone();
                 setCurrentTotals(easycurrent);
                 setAnsTotals(easyans1);
@@ -329,7 +329,7 @@ namespace Assignment5
                 colorInitVals(easyinitial3);
             }
 
-            
+
 
             // bind the event handlers for text change and hiding focus for easy puzzles
             EasyBoxes[0, 0].TextChanged += (sender2, e2) => easy_box_changed(sender2, e2, 0, 0);
@@ -361,10 +361,10 @@ namespace Assignment5
             }
             else
             {
-                if(Convert.ToChar(EasyBoxes[x, y].Text) == '1' || Convert.ToChar(EasyBoxes[x, y].Text) == '2' || Convert.ToChar(EasyBoxes[x, y].Text) == '3' || 
+                if (Convert.ToChar(EasyBoxes[x, y].Text) == '1' || Convert.ToChar(EasyBoxes[x, y].Text) == '2' || Convert.ToChar(EasyBoxes[x, y].Text) == '3' ||
                         Convert.ToChar(EasyBoxes[x, y].Text) == '4' || Convert.ToChar(EasyBoxes[x, y].Text) == '5' || Convert.ToChar(EasyBoxes[x, y].Text) == '6' || Convert.ToChar(EasyBoxes[x, y].Text) == '7'
                         || Convert.ToChar(EasyBoxes[x, y].Text) == '8' || Convert.ToChar(EasyBoxes[x, y].Text) == '9')
-                        {
+                {
                     easycurrent[y, x] = Convert.ToChar(EasyBoxes[x, y].Text);
                 }
                 else
@@ -401,15 +401,15 @@ namespace Assignment5
             if (winner)
             {
                 MessageBox.Show("Answer correct, you win!\nCompleted in " + timer.Elapsed.Minutes + " minutes and " + timer.Elapsed.Seconds + " seconds.\n" +
-                                "Current best time is " + (easyRecord/1000)/60 + " minutes and " + (easyRecord/1000)%60 + " seconds." + "\nAverage time: " + (avgEasy/1000)/60 + 
-                                " minutes and " + (avgEasy/1000)%60 + " seconds." + (timer.ElapsedMilliseconds < easyRecord ? "\n\nYou set a new record!" : ""), "Winner");
+                                "Current best time is " + (easyRecord / 1000) / 60 + " minutes and " + (easyRecord / 1000) % 60 + " seconds." + "\nAverage time: " + (avgEasy / 1000) / 60 +
+                                " minutes and " + (avgEasy / 1000) % 60 + " seconds." + (timer.ElapsedMilliseconds < easyRecord ? "\n\nYou set a new record!" : ""), "Winner");
 
                 //if high score, update high score file
                 if (timer.ElapsedMilliseconds < easyRecord)
                 {
                     easyRecord = (int)timer.ElapsedMilliseconds;
                     string[] lines = { easyRecord.ToString(), medRecord.ToString(), hardRecord.ToString() };
-                    File.WriteAllLines(highScorePath, lines);            
+                    File.WriteAllLines(highScorePath, lines);
                 }
 
                 //write score to score file
@@ -439,7 +439,7 @@ namespace Assignment5
             else
             {
                 MessageBox.Show("Answer incorrect, try again.", "Not Quite");
-            }          
+            }
         }
 
         private void mediumToolStripMenuItem_Click(object sender, EventArgs e)
@@ -595,7 +595,7 @@ namespace Assignment5
             this.Controls.Add(MediumTotals[11]);
             if (mediumcomplete[0])
             {
-                if(mediumcurrent == null)
+                if (mediumcurrent == null)
                     mediumcurrent = (char[,])mediuminitial1.Clone();
                 setCurrentTotals(mediumcurrent);
                 setAnsTotals(mediumans1);
@@ -617,7 +617,7 @@ namespace Assignment5
                 setAnsTotals(mediumans3);
                 colorInitVals(mediuminitial3);
             }
-            
+
 
             // bind the event handlers for changing text and hiding focus for medium puzzles
             MediumBoxes[0, 0].TextChanged += (sender2, e2) => medium_box_changed(sender2, e2, 0, 0);
@@ -684,7 +684,7 @@ namespace Assignment5
                 if (Convert.ToChar(MediumBoxes[x, y].Text) == '1' || Convert.ToChar(MediumBoxes[x, y].Text) == '2' || Convert.ToChar(MediumBoxes[x, y].Text) == '3' || Convert.ToChar(MediumBoxes[x, y].Text) == '4'
                      || Convert.ToChar(MediumBoxes[x, y].Text) == '5' || Convert.ToChar(MediumBoxes[x, y].Text) == '6' || Convert.ToChar(MediumBoxes[x, y].Text) == '7' || Convert.ToChar(MediumBoxes[x, y].Text) == '8'
                   || Convert.ToChar(MediumBoxes[x, y].Text) == '9')
-                 {
+                {
                     mediumcurrent[y, x] = Convert.ToChar(MediumBoxes[x, y].Text);
                 }
                 else
@@ -713,7 +713,7 @@ namespace Assignment5
             for (int i = 0; i < 12; i++)
                 if (i != 5 && i != 11)
                     if (MediumTotals[i].Text != MediumAnswers[i].Text)
-                        winner =  false;
+                        winner = false;
 
             if (MediumTotals[5].Text != MediumAnswers[11].Text || MediumTotals[11].Text != MediumAnswers[5].Text)
                 winner = false;
@@ -813,14 +813,14 @@ namespace Assignment5
                     {
                         if (!hardinitial3[x, i].Equals('0') || (hardcurrent != null && !hardcurrent[x, i].Equals('0')))
                         {
-                                if (hardcurrent != null)
-                                {
-                                    HardBoxes[i, x].Text = hardcurrent[x, i].ToString();
-                                }
-                                else
-                                {
-                                    this.HardBoxes[i, x].Text = hardinitial3[x, i].ToString();
-                                }
+                            if (hardcurrent != null)
+                            {
+                                HardBoxes[i, x].Text = hardcurrent[x, i].ToString();
+                            }
+                            else
+                            {
+                                this.HardBoxes[i, x].Text = hardinitial3[x, i].ToString();
+                            }
                             HardBoxes[i, x].ReadOnly = true;
                         }
                     }
@@ -918,7 +918,7 @@ namespace Assignment5
             this.Controls.Add(HardTotals[15]);
             if (hardcomplete[0])
             {
-                if(hardcurrent == null)
+                if (hardcurrent == null)
                     hardcurrent = (char[,])hardinitial1.Clone();
                 setCurrentTotals(hardcurrent);
                 setAnsTotals(hardans1);
@@ -941,10 +941,10 @@ namespace Assignment5
                 colorInitVals(hardinitial3);
             }
             else
-            
 
-            // bind the event handlers for changing editable text boxes in easy puzzles
-            HardBoxes[0, 0].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 0, 0);
+
+                // bind the event handlers for changing editable text boxes in easy puzzles
+                HardBoxes[0, 0].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 0, 0);
             HardBoxes[0, 1].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 0, 1);
             HardBoxes[0, 2].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 0, 2);
             HardBoxes[0, 3].TextChanged += (sender2, e2) => hard_box_changed(sender2, e2, 0, 3);
@@ -1054,9 +1054,9 @@ namespace Assignment5
             }
             else
             {
-                if(Convert.ToChar(HardBoxes[x, y].Text) == '1' || Convert.ToChar(HardBoxes[x, y].Text) == '2' || Convert.ToChar(HardBoxes[x, y].Text) == '3' || Convert.ToChar(HardBoxes[x, y].Text) == '4' || Convert.ToChar(HardBoxes[x, y].Text) == '5'
-                    || Convert.ToChar(HardBoxes[x, y].Text) == '6' || Convert.ToChar(HardBoxes[x, y].Text)  == '7' || Convert.ToChar(HardBoxes[x, y].Text) == '8' || Convert.ToChar(HardBoxes[x, y].Text) == '9')
-                    {
+                if (Convert.ToChar(HardBoxes[x, y].Text) == '1' || Convert.ToChar(HardBoxes[x, y].Text) == '2' || Convert.ToChar(HardBoxes[x, y].Text) == '3' || Convert.ToChar(HardBoxes[x, y].Text) == '4' || Convert.ToChar(HardBoxes[x, y].Text) == '5'
+                    || Convert.ToChar(HardBoxes[x, y].Text) == '6' || Convert.ToChar(HardBoxes[x, y].Text) == '7' || Convert.ToChar(HardBoxes[x, y].Text) == '8' || Convert.ToChar(HardBoxes[x, y].Text) == '9')
+                {
                     hardcurrent[y, x] = Convert.ToChar(HardBoxes[x, y].Text);
                 }
                 else
@@ -1335,8 +1335,8 @@ namespace Assignment5
                 }
             }
         }
-        
-        
+
+
         public void setCurrentTotals(char[,] charar)
         {
             if (currentdif == 1)
@@ -1415,7 +1415,7 @@ namespace Assignment5
                 }
             }
         }
-    
+
 
         public void colorInitVals(char[,] charar)
         {
@@ -1466,7 +1466,7 @@ namespace Assignment5
         {
             switch (currentdif)
             {
-                case 1:     
+                case 1:
                     HideCaret(EasyBoxes[x, y].Handle);
                     if (EasyBoxes[x, y].BackColor != Color.Gray)
                     {
@@ -1483,7 +1483,7 @@ namespace Assignment5
                         }
                     }
                     return;
-                case 2:     
+                case 2:
                     HideCaret(MediumBoxes[x, y].Handle);
                     if (MediumBoxes[x, y].BackColor != Color.Gray)
                     {
@@ -1500,7 +1500,7 @@ namespace Assignment5
                         }
                     }
                     return;
-                case 3:     
+                case 3:
                     HideCaret(HardBoxes[x, y].Handle);
                     if (HardBoxes[x, y].BackColor != Color.Gray)
                     {
@@ -1517,7 +1517,7 @@ namespace Assignment5
                         }
                     }
                     return;
-                default:    
+                default:
                     return;
             }
         }
@@ -1526,11 +1526,11 @@ namespace Assignment5
         {
             switch (currentdif)
             {
-                case 1:     easyWin();    return;
-                case 2:     mediumWin();  return;
-                case 3:     hardWin();    return;
-                default:    return;
-            }    
+                case 1: easyWin(); return;
+                case 2: mediumWin(); return;
+                case 3: hardWin(); return;
+                default: return;
+            }
         }
 
         private void cheat_button_Click(object sender, EventArgs e)
@@ -1571,7 +1571,7 @@ namespace Assignment5
                             if (found)
                                 break;
                         }
-                        return;                                                    
+                        return;
                     }
                 // Medium
                 case 2:
@@ -1601,7 +1601,7 @@ namespace Assignment5
                         }
                         return;
                     }
-                    
+
                 // Hard
                 case 3:
                     {
@@ -1629,8 +1629,8 @@ namespace Assignment5
                                 break;
                         }
                         return;
-                    }                                        
-                default: return; 
+                    }
+                default: return;
             }
         }
 
@@ -1643,170 +1643,85 @@ namespace Assignment5
             currentBox = null;
             readin();
             timer.Restart();
+
+            char[,] easyinit = new char[3, 3];
+            char[,] medinit = new char[5, 5];
+            char[,] hardinit = new char[7, 7];
+
             switch (currentdif)
             {
                 //reset easy board
                 case 1:
                     {
-                        switch (curEasyBoard)
-                        {
-                            case 0:
-                                {
-                                    for (int i = 0; i < 3; i++)
-                                    {
-                                        for (int x = 0; x < 3; x++)
-                                     
-                                        {
-                                            if (EasyBoxes[i, x].Text != easyinitial1[x, i].ToString())
-                                            {
-                                                EasyBoxes[i, x].Text = "";
-                                                easycurrent[i, x] = '0';
-                                            }
-                                        }
-                                    }
-                                    return;
-                                }
-                            case 1:
-                                {
-                                    for (int i = 0; i < 3; i++)
-                                    {
-                                        for (int x = 0; x < 3; x++)
-                                        {
-                                            if (EasyBoxes[i, x].Text != easyinitial2[x, i].ToString())
-                                            {
-                                                EasyBoxes[i, x].Text = "";
-                                                easycurrent[i, x] = '0';
-                                            }
-                                        }
-                                    }
-                                    return;
-                                }
-                            case 2:
-                                {
-                                    for (int i = 0; i < 3; i++)
-                                    {
-                                        for (int x = 0; x < 3; x++)
-                                        {
-                                            if (EasyBoxes[i, x].Text != easyinitial3[x, i].ToString())
-                                            {
-                                                EasyBoxes[i, x].Text = "";
-                                                easycurrent[i, x] = '0';
-                                            }
-                                        }
-                                    }
-                                    return;
-                                }
-                            default: return;
-                        }
+                        if (curEasyBoard == 0)
+                            easyinit = easyinitial1;
+                        else if (curEasyBoard == 1)
+                            easyinit = easyinitial2;
+                        else
+                            easyinit = easyinitial3;
 
-                    }
+                        for (int i = 0; i < 3; i++)
+                        {
+                            for (int x = 0; x < 3; x++)
+
+                            {
+                                if (EasyBoxes[i, x].Text != easyinit[x, i].ToString())
+                                {
+                                    EasyBoxes[i, x].Text = "";
+                                    easycurrent[i, x] = '0';
+                                }
+                            }
+                        }
+                        return;
+                    }   
+                //reset medium board
                 case 2:
                     {
-                        switch (curMediumBoard)
+                        if (curMediumBoard == 0)
+                            medinit = mediuminitial1;
+                        else if (curMediumBoard == 1)
+                            medinit = mediuminitial2;
+                        else
+                            medinit = mediuminitial3;
+
+                        for (int i = 0; i < 5; i++)
                         {
-                            case 0:
+                            for (int x = 0; x < 5; x++)
+                            {
+                                if (MediumBoxes[i, x].Text != medinit[x, i].ToString())
                                 {
-                                    for (int i = 0; i < 5; i++)
-                                    {
-                                        for (int x = 0; x < 5; x++)
-                                        {
-                                            if (MediumBoxes[i, x].Text != mediuminitial1[x, i].ToString())
-                                            {
-                                                MediumBoxes[i, x].Text = "";
-                                                mediumcurrent[i, x] = '0';
-                                            }
-                                        }
-                                    }
-                                    return;
+                                    MediumBoxes[i, x].Text = "";
+                                    mediumcurrent[i, x] = '0';
                                 }
-                            case 1:
-                                {
-                                    for (int i = 0; i < 5; i++)
-                                    {
-                                        for (int x = 0; x < 5; x++)
-                                        {
-                                            if (MediumBoxes[i, x].Text != mediuminitial2[x, i].ToString())
-                                            {
-                                                MediumBoxes[i, x].Text = "";
-                                                mediumcurrent[i, x] = '0';
-                                            }
-                                        }
-                                    }
-                                    return;
-                                }
-                            case 2:
-                                {
-                                    for (int i = 0; i < 5; i++)
-                                    {
-                                        for (int x = 0; x < 5; x++)
-                                        {
-                                            if (MediumBoxes[i, x].Text != mediuminitial3[x, i].ToString())
-                                            {
-                                                MediumBoxes[i, x].Text = "";
-                                                mediumcurrent[i, x] = '0';
-                                            }
-                                        }
-                                    }
-                                    return;
-                                }
-                            default: return;
+                            }
                         }
-                    }
+                        return;
+                     }
+                //reset hard board
                 case 3:
                     {
-                        switch (curHardBoard)
+                        if (curHardBoard == 0)
+                            hardinit = hardinitial1;
+                        else if (curHardBoard == 1)
+                            hardinit = hardinitial2;
+                        else
+                            hardinit = hardinitial3;
+
+                        for (int i = 0; i < 7; i++)
                         {
-                            case 0:
+                            for (int x = 0; x < 7; x++)
+                            {
+                                if (HardBoxes[i, x].Text != hardinit[x, i].ToString())
                                 {
-                                    for (int i = 0; i < 7; i++)
-                                    {
-                                        for (int x = 0; x < 7; x++)
-                                        {
-                                            if (HardBoxes[i, x].Text != hardinitial1[x, i].ToString())
-                                            {
-                                                HardBoxes[i, x].Text = "";
-                                                hardcurrent[i, x] = '0';
-                                            }
-                                        }
-                                    }
-                                    return;
+                                    HardBoxes[i, x].Text = "";
+                                    hardcurrent[i, x] = '0';
                                 }
-                            case 1:
-                                {
-                                    for (int i = 0; i < 7; i++)
-                                    {
-                                        for (int x = 0; x < 7; x++)
-                                        {
-                                            if (HardBoxes[i, x].Text != hardinitial2[x, i].ToString())
-                                            {
-                                                HardBoxes[i, x].Text = "";
-                                                hardcurrent[i, x] = '0';
-                                            }
-                                        }
-                                    }
-                                    return;
-                                }
-                            case 2:
-                                {
-                                    for (int i = 0; i < 7; i++)
-                                    {
-                                        for (int x = 0; x < 7; x++)
-                                        {
-                                            if (HardBoxes[i, x].Text != hardinitial3[x, i].ToString())
-                                            {
-                                                HardBoxes[i, x].Text = "";
-                                                hardcurrent[i, x] = '0';
-                                            }
-                                        }
-                                    }
-                                    return;
-                                }
-                            default: return;
+                            }
                         }
+                        return;
                     }
-                default:    return;
+                default: return;
             }
-                       
         }
 
         private void pause_button_Click(object sender, EventArgs e)
