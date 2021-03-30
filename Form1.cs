@@ -1638,8 +1638,9 @@ namespace Assignment5
         {
             if (currentdif == -1)
                 return;
-            // re-read the initial values
-            currentBox.BackColor = Color.White;
+            // re-read the initial values and reset selected box color
+            if (currentBox != null)
+                currentBox.BackColor = Color.White;
             currentBox = null;
             readin();
             timer.Restart();
@@ -1668,7 +1669,7 @@ namespace Assignment5
                                 if (EasyBoxes[i, x].Text != easyinit[x, i].ToString())
                                 {
                                     EasyBoxes[i, x].Text = "";
-                                    easycurrent[i, x] = '0';
+                                    easycurrent[x, i] = '0';
                                 }
                             }
                         }
@@ -1691,7 +1692,7 @@ namespace Assignment5
                                 if (MediumBoxes[i, x].Text != medinit[x, i].ToString())
                                 {
                                     MediumBoxes[i, x].Text = "";
-                                    mediumcurrent[i, x] = '0';
+                                    mediumcurrent[x, i] = '0';
                                 }
                             }
                         }
@@ -1714,7 +1715,7 @@ namespace Assignment5
                                 if (HardBoxes[i, x].Text != hardinit[x, i].ToString())
                                 {
                                     HardBoxes[i, x].Text = "";
-                                    hardcurrent[i, x] = '0';
+                                    hardcurrent[x, i] = '0';
                                 }
                             }
                         }
