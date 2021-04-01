@@ -13,6 +13,13 @@ using System.Diagnostics;
 
 namespace Assignment5
 {
+   /*
+     Cameron Lloyd, Bradley Graves
+     z1853137, z1853328
+     Assignment 5
+     CSCI 473
+     Creates a sudoku puzzle from dynamically created rich text boxes 
+   */
     public partial class Form1 : Form
     {
         [DllImport("user32.dll")]
@@ -114,6 +121,7 @@ namespace Assignment5
             }
             readin();
         }
+        //deallocates the rich text boxes as required
         public void clearTotals()
         {
             foreach (RichTextBox r in EasyAnswers)
@@ -147,13 +155,15 @@ namespace Assignment5
                     r.Dispose();
             }
         }
+        //creates all the text boxes when a new game is started
         private void easyToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //starts the timer as the game starts
             timer.Start();
-            //easycomplete[0] = false;
-            //easycomplete[1] = false;
+            //stes the difficulty and then clears the controls
             currentdif = 1;
             panel1.Controls.Clear();
+            //sets up the inner boxes and their values
             for (int i = 0; i < 3; i++)
             {
                 for (int x = 0; x < 3; x++)
@@ -164,6 +174,7 @@ namespace Assignment5
                     this.EasyBoxes[i, x].Name = "EasyBox" + i + x;
                     this.EasyBoxes[i, x].Size = new System.Drawing.Size(panel1.Width / 3, panel1.Height / 3);
                     this.EasyBoxes[i, x].SelectionAlignment = HorizontalAlignment.Center;
+                    //depending on the dificulty sets the initial numbers in the inner boxes or the initial values if there is not current game
                     if (easycomplete[0])
                     {
                         if (!easyinitial1[x, i].Equals('0') || (easycurrent != null && !easycurrent[x, i].Equals('0')))
@@ -216,6 +227,7 @@ namespace Assignment5
             }
             panel1.PerformLayout();
             clearTotals();
+            //sets upp all the outer boxes for all the totals both current and the answers
             for (int i = 0; i < 3; i++)
             {
                 EasyAnswers[i] = new System.Windows.Forms.RichTextBox();
@@ -303,7 +315,7 @@ namespace Assignment5
             this.EasyTotals[7].BackColor = Color.Red;
             this.EasyTotals[7].SelectionAlignment = HorizontalAlignment.Center;
             this.Controls.Add(EasyTotals[7]);
-
+            //sets the values for the totals and then changes the inital values of the puzzle to gray
             if (easycomplete[0])
             {
                 if (easycurrent == null)
@@ -351,14 +363,16 @@ namespace Assignment5
             EasyBoxes[2, 1].Click += (sender2, e2) => hide_focus(sender2, e2, 2, 1);
             EasyBoxes[2, 2].Click += (sender2, e2) => hide_focus(sender2, e2, 2, 2);
         }
-
+        //handles when the text is changed
         protected void easy_box_changed(object sender, EventArgs e, int x, int y)
         {
+            //if there is already some text in the box it clears that text
             if (!(EasyBoxes[x, y].Text.Length == 1))
             {
                 easycurrent[y, x] = Convert.ToChar('0');
                 EasyBoxes[x, y].Text = "";
             }
+            //if there is no text it checks if the input is in fact a number 1-9 and if not it either clears what's there or adds in the number
             else
             {
                 if (Convert.ToChar(EasyBoxes[x, y].Text) == '1' || Convert.ToChar(EasyBoxes[x, y].Text) == '2' || Convert.ToChar(EasyBoxes[x, y].Text) == '3' ||
@@ -375,7 +389,7 @@ namespace Assignment5
             }
 
             HideCaret(EasyBoxes[x, y].Handle);
-
+            //adjusts the total values
             setCurrentTotals(easycurrent);
 
             // Set the color based on correctness
@@ -385,7 +399,7 @@ namespace Assignment5
             EasyTotals[3].BackColor = (EasyTotals[3].Text == EasyAnswers[7].Text ? Color.Green : Color.Red);
             EasyTotals[7].BackColor = (EasyTotals[7].Text == EasyAnswers[3].Text ? Color.Green : Color.Red);
         }
-
+        //if all the answers where correct it gives a message and adds the score to the score file
         public void easyWin()
         {
             timer.Stop();
@@ -441,7 +455,7 @@ namespace Assignment5
                 MessageBox.Show("Answer incorrect, try again.", "Not Quite");
             }
         }
-
+        //creates all the text boxes when a new game is started same as easy but with more boxes
         private void mediumToolStripMenuItem_Click(object sender, EventArgs e)
         {
             timer.Start();
@@ -671,7 +685,7 @@ namespace Assignment5
             MediumBoxes[4, 3].Click += (sender2, e2) => hide_focus(sender2, e2, 4, 3);
             MediumBoxes[4, 4].Click += (sender2, e2) => hide_focus(sender2, e2, 4, 4);
         }
-
+        //handles when the text is changed same as easy but with more boxes
         protected void medium_box_changed(object s, EventArgs e, int x, int y)
         {
             if (!(MediumBoxes[x, y].Text.Length == 1))
@@ -705,7 +719,7 @@ namespace Assignment5
             MediumTotals[5].BackColor = (MediumTotals[5].Text == MediumAnswers[11].Text ? Color.Green : Color.Red);
             MediumTotals[11].BackColor = (MediumTotals[11].Text == MediumAnswers[5].Text ? Color.Green : Color.Red);
         }
-
+        //if all the answers where correct it gives a message and adds the score to the score file
         public void mediumWin()
         {
             timer.Stop();
@@ -762,6 +776,7 @@ namespace Assignment5
                 MessageBox.Show("Answer incorrect, try again.", "Not Quite");
             }
         }
+        //creates all the text boxes when a new game is started same as easy but with more boxes
         private void hardToolStripMenuItem_Click(object sender, EventArgs e)
         {
             timer.Start();
@@ -1044,7 +1059,7 @@ namespace Assignment5
             HardBoxes[6, 6].Click += (sender2, e2) => hide_focus(sender2, e2, 6, 6);
 
         }
-
+        //handles when the text is changed same as easy but with more boxes
         protected void hard_box_changed(object s, EventArgs e, int x, int y)
         {
             if (!(HardBoxes[x, y].Text.Length == 1))
@@ -1077,7 +1092,7 @@ namespace Assignment5
             HardTotals[7].BackColor = (HardTotals[7].Text == HardAnswers[15].Text ? Color.Green : Color.Red);
             HardTotals[15].BackColor = (HardTotals[15].Text == HardAnswers[7].Text ? Color.Green : Color.Red);
         }
-
+        //if all the answers where correct it gives a message and adds the score to the score file
         public void hardWin()
         {
             timer.Stop();
@@ -1134,7 +1149,7 @@ namespace Assignment5
                 MessageBox.Show("Answer incorrect, try again.", "Not Quite");
             }
         }
-
+        //reads in the files for the puzzles
         public void readin()
         {
             string[] records;
@@ -1256,9 +1271,10 @@ namespace Assignment5
 
             initialRead = false;
         }
-
+        //sets the totals for the answers to the puzzles
         public void setAnsTotals(char[,] charar)
         {
+            //sets the answers if its an easy puzzle
             if (currentdif == 1)
             {
                 int[] total = new int[8];
@@ -1280,6 +1296,7 @@ namespace Assignment5
                 }
 
             }
+            //sets the answers if its an medium puzzle
             if (currentdif == 2)
             {
                 int[] total = new int[12];
@@ -1304,6 +1321,7 @@ namespace Assignment5
                     MediumAnswers[i].SelectionAlignment = HorizontalAlignment.Center;
                 }
             }
+            //sets the answers if its an hard puzzle
             if (currentdif == 3)
             {
                 int[] total = new int[16];
@@ -1336,9 +1354,10 @@ namespace Assignment5
             }
         }
 
-
+        //sets the current totals for the puzzle's current state
         public void setCurrentTotals(char[,] charar)
         {
+            //sets the current totals if its an easy puzzle
             if (currentdif == 1)
             {
                 int[] total = new int[8];
@@ -1360,6 +1379,7 @@ namespace Assignment5
                 }
 
             }
+            //sets the current totals if its an easy puzzle
             if (currentdif == 2)
             {
                 int[] total = new int[12];
@@ -1384,6 +1404,7 @@ namespace Assignment5
                     MediumTotals[i].SelectionAlignment = HorizontalAlignment.Center;
                 }
             }
+            //sets the current totals if its an easy puzzle
             if (currentdif == 3)
             {
                 int[] total = new int[16];
@@ -1416,9 +1437,10 @@ namespace Assignment5
             }
         }
 
-
+        //grays out the initial values for the puzzle
         public void colorInitVals(char[,] charar)
         {
+            //checks through the inner boxes of the initial puzzles and if it is not a 0 it changes that box to gray
             if (currentdif == 1)
             {
                 for (int i = 0; i < 3; i++)
@@ -1461,7 +1483,7 @@ namespace Assignment5
                 }
             }
         }
-
+        //hides the cursor if you select a text box
         public void hide_focus(object sender, EventArgs e, int x, int y)
         {
             switch (currentdif)
@@ -1521,7 +1543,7 @@ namespace Assignment5
                     return;
             }
         }
-
+        //checks to see if you solved the puzzle
         private void check_answer_button_Click(object sender, EventArgs e)
         {
             switch (currentdif)
@@ -1532,7 +1554,7 @@ namespace Assignment5
                 default: return;
             }
         }
-
+        //fills in one answer for you
         private void cheat_button_Click(object sender, EventArgs e)
         {
             if (currentdif == -1)
@@ -1633,7 +1655,7 @@ namespace Assignment5
                 default: return;
             }
         }
-
+        //resets the puzzle
         public void reset_button_Click(object sender, EventArgs e)
         {
             if (currentdif == -1)
@@ -1724,7 +1746,7 @@ namespace Assignment5
                 default: return;
             }
         }
-
+        //pauses the timer
         private void pause_button_Click(object sender, EventArgs e)
         {
             if (currentdif == -1)
